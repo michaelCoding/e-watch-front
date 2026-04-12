@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import CheckoutNav from '@modules/layout/templates/checkout-nav'
 import Footer from '@modules/layout/templates/footer'
 

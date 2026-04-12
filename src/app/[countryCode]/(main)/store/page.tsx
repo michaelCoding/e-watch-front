@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Metadata } from "next"
 
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"

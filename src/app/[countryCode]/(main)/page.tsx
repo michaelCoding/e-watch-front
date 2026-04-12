@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Metadata } from 'next'
 import { getProductsList } from '@lib/data/products'
 import { getRegion } from '@lib/data/regions'

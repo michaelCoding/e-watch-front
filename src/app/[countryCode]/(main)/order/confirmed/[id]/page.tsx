@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Metadata } from "next"
 
 import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"

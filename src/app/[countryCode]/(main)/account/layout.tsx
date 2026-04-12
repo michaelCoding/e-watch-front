@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { getCustomer } from "@lib/data/customer"
 import AccountLayout from "@modules/account/templates/account-layout"
 

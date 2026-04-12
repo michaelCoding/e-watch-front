@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Metadata } from "next"
 
 import LoginTemplate from "@modules/account/templates/login-template"

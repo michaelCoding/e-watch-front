@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Metadata } from 'next'
 import BlogListTemplate from '@modules/blog/templates/blog-list'
 import { getBanner } from '@lib/data/cms'

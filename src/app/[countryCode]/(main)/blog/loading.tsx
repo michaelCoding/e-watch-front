@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Container } from '@modules/common/components/container'
 import SkeletonBlogPosts from '@modules/skeletons/templates/skeleton-post-tile'
 

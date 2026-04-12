@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Container } from '@modules/common/components/container'
 import SkeletonProductGrid from '@modules/skeletons/templates/skeleton-product-grid'
 

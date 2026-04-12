@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Metadata } from "next"
 
 import SearchResultsTemplate from "@modules/search/templates/search-results-template"

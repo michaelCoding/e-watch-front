@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Metadata } from "next"
 
 import OrderOverview from "@modules/account/components/order-overview"
