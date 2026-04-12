@@ -1,12 +1,12 @@
 export const heroBannerConfig = {
-  headline: 'Live gently. Live woodenly.',
-  text: 'A quieter way to live, shaped by wood.',
+  headline: 'The Art of Precision.',
+  text: 'Experience the future of timekeeping. A titanium masterpiece engineered for the digital curator.',
   cta: {
-    text: 'Enter the moment →',
+    text: 'Shop Collection',
     link: '/store',
   },
   image: {
-    url: 'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=1200&q=80',
-    alt: 'Wooden objects in morning light',
+    url: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1600&q=80',
+    alt: 'Precision timepiece on clean surface',
   },
 }

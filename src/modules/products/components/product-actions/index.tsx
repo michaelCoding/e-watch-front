@@ -124,7 +124,8 @@ export default function ProductActions({
             onClick={handleBuyNow}
             disabled={ctaDisabled}
             data-testid="buy-now-button"
-            className="w-full py-4 bg-[#6f4627] text-white rounded-md font-semibold text-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-4 text-white rounded-full font-semibold text-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ background: 'linear-gradient(135deg, #006875 0%, #00e5ff 100%)' }}
           >
             {isBuying
               ? "Redirecting…"
@@ -140,7 +141,7 @@ export default function ProductActions({
             onClick={handleAddToCart}
             disabled={ctaDisabled}
             data-testid="add-product-button"
-            className="w-full py-4 border-2 border-[#6f4627] text-[#6f4627] rounded-md font-semibold text-lg hover:bg-[#6f4627]/5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-4 border-2 border-primary text-primary rounded-full font-semibold text-lg hover:bg-primary/5 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isAdding
               ? "Adding…"

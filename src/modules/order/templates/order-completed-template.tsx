@@ -20,8 +20,7 @@ export default async function OrderCompletedTemplate({
 
   return (
     <div
-      className="min-h-[calc(100vh-64px)]"
-      style={{ background: "var(--scandi-bg, #F7F4EF)" }}
+      className="min-h-[calc(100vh-64px)] bg-surface"
     >
       <style>{`
         @keyframes oc-draw-circle {
@@ -68,19 +67,20 @@ export default async function OrderCompletedTemplate({
               viewBox="0 0 60 60"
               fill="none"
               aria-hidden="true"
+              className="text-primary"
             >
               <circle
                 className="oc-circle"
                 cx="30"
                 cy="30"
                 r="28"
-                stroke="#6f4627"
+                stroke="currentColor"
                 strokeWidth="1.25"
               />
               <polyline
                 className="oc-check"
                 points="19,31 27,39 42,22"
-                stroke="#6f4627"
+                stroke="currentColor"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -88,11 +88,11 @@ export default async function OrderCompletedTemplate({
             </svg>
           </div>
 
-          <p className="oc-1 font-body text-[11px] tracking-[0.22em] uppercase text-[var(--scandi-fg-muted,#6B6860)] mb-4">
+          <p className="oc-1 text-[11px] tracking-[0.22em] uppercase text-on-surface-variant mb-4">
             Order confirmed
           </p>
 
-          <h1 className="oc-2 font-headline text-[2rem] leading-[1.18] text-[var(--scandi-fg,#1C1C1A)] mb-6 max-w-sm">
+          <h1 className="oc-2 font-bold text-[2rem] leading-[1.18] text-on-surface mb-6 max-w-sm">
             Thank you for choosing a quieter way to live.
           </h1>
 
@@ -103,8 +103,8 @@ export default async function OrderCompletedTemplate({
 
         {/* ── Items ── */}
         <div className="oc-4">
-          <div className="border-t border-[var(--scandi-border,#E8E4DC)] pt-9 mb-9">
-            <p className="font-headline text-[1.15rem] text-[var(--scandi-fg,#1C1C1A)] mb-7 tracking-wide">
+          <div className="border-t border-outline-variant pt-9 mb-9">
+            <p className="font-bold text-[1.15rem] text-on-surface mb-7 tracking-wide">
               Your Items
             </p>
             <Items items={order.items} />

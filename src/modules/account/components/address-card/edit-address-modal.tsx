@@ -36,7 +36,7 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
 
   return (
     <div
-      className="group relative rounded-2xl border border-[#e8e4dc] bg-[#faf7f3] overflow-hidden transition-all duration-300"
+      className="group relative rounded-xl border border-outline-variant bg-surface overflow-hidden transition-all duration-300"
       style={{ boxShadow: "0 1px 4px rgba(28,28,26,0.04)" }}
       data-testid="address-container"
     >
@@ -47,7 +47,7 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
           <div className="flex items-start justify-between">
             <div>
               <p
-                className="font-lora text-[17px] text-[#1c1c1a] leading-snug"
+                className="font-bold text-[17px] text-on-surface leading-snug"
                 data-testid="address-name"
               >
                 {address.first_name} {address.last_name}
@@ -62,7 +62,7 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
             <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={() => { setIsEditing(true); setConfirmDelete(false) }}
-                className="p-1.5 rounded-lg hover:bg-[#f0ede8] text-[#9b9590] hover:text-[#1c1c1a] transition-all"
+                className="p-1.5 rounded-lg hover:bg-surface-container-low text-[#9b9590] hover:text-on-surface transition-all"
                 data-testid="address-edit-button"
                 title="Edit address"
               >
@@ -84,7 +84,7 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
           </div>
 
           {/* Address lines */}
-          <div className="text-sm text-[#6b6860] leading-relaxed space-y-0.5">
+          <div className="text-sm text-on-surface-variant leading-relaxed space-y-0.5">
             <p data-testid="address-address">
               {address.address_1}
               {address.address_2 && `, ${address.address_2}`}
@@ -103,12 +103,12 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
 
           {/* Confirm delete */}
           {confirmDelete && (
-            <div className="mt-2 pt-4 border-t border-[#e8e4dc] flex items-center justify-between">
-              <p className="text-xs text-[#6b6860]">Remove this address?</p>
+            <div className="mt-2 pt-4 border-t border-outline-variant flex items-center justify-between">
+              <p className="text-xs text-on-surface-variant">Remove this address?</p>
               <div className="flex gap-2">
                 <button
                   onClick={() => setConfirmDelete(false)}
-                  className="text-xs text-[#9b9590] hover:text-[#1c1c1a] transition-colors px-3 py-1.5"
+                  className="text-xs text-[#9b9590] hover:text-on-surface transition-colors px-3 py-1.5"
                 >
                   Cancel
                 </button>
@@ -129,10 +129,10 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
       <div className={`transition-all duration-300 ${isEditing ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`}>
         <div className="p-6">
           <div className="flex items-center justify-between mb-5">
-            <p className="font-lora text-[15px] text-[#1c1c1a]">Edit Address</p>
+            <p className="font-bold text-[15px] text-on-surface">Edit Address</p>
             <button
               onClick={() => setIsEditing(false)}
-              className="text-[#9b9590] hover:text-[#1c1c1a] transition-colors p-1"
+              className="text-[#9b9590] hover:text-on-surface transition-colors p-1"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
@@ -176,14 +176,15 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="flex-1 py-2.5 text-sm text-[#6b6860] border border-[#e8e4dc] rounded-xl hover:bg-[#f0ede8] transition-all"
+                className="flex-1 py-2.5 text-sm text-on-surface-variant border border-outline-variant rounded-xl hover:bg-surface-container-low transition-all"
                 data-testid="cancel-button"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2.5 text-sm text-white bg-[#1c1c1a] rounded-xl hover:bg-[#2d2d2a] transition-all"
+                className="flex-1 py-2.5 text-sm text-white rounded-full font-semibold hover:opacity-90 transition-all"
+                style={{ background: "linear-gradient(135deg, #006875 0%, #00e5ff 100%)" }}
                 data-testid="save-button"
               >
                 Save Changes

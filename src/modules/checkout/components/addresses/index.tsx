@@ -29,7 +29,7 @@ const StepBadge = ({
       completed
         ? "bg-[#d4ede4] text-[#2d6b4f]"
         : active
-        ? "bg-[#6f4627] text-white"
+        ? "bg-primary text-white"
         : "bg-[#e8e4dc] text-[#9b9590]",
     ].join(" ")}
   >
@@ -77,8 +77,8 @@ const Addresses = ({
           <StepBadge num="01" active={isOpen} completed={completed} />
           <h2
             className={[
-              "font-lora text-[20px] leading-none transition-colors",
-              isOpen || completed ? "text-[#1c1c1a]" : "text-[#9b9590]",
+              "font-bold text-[20px] leading-none transition-colors",
+              isOpen || completed ? "text-on-surface" : "text-[#9b9590]",
             ].join(" ")}
           >
             Shipping Address
@@ -87,7 +87,7 @@ const Addresses = ({
         {completed && (
           <button
             onClick={handleEdit}
-            className="text-xs text-[#6f4627] hover:underline transition-colors"
+            className="text-xs text-primary hover:underline transition-colors"
             data-testid="edit-address-button"
           >
             Edit
@@ -112,7 +112,7 @@ const Addresses = ({
                   <div className="w-7 h-7 rounded-full bg-[#e8e4dc] flex items-center justify-center text-xs font-semibold text-[#9b9590]">
                     ↳
                   </div>
-                  <h2 className="font-lora text-[18px] text-[#1c1c1a]">
+                  <h2 className="font-bold text-[18px] text-on-surface">
                     Billing Address
                   </h2>
                 </div>
@@ -128,11 +128,11 @@ const Addresses = ({
         </form>
       ) : (
         /* ── Closed (summary) state ── */
-        <div className="text-sm text-[#6b6860]">
+        <div className="text-sm text-on-surface-variant">
           {cart && cart.shipping_address ? (
             <div className="flex items-start gap-8">
               <div className="flex flex-col gap-0.5" data-testid="shipping-address-summary">
-                <p className="text-xs font-semibold text-[#1c1c1a] uppercase tracking-wider mb-1.5">
+                <p className="text-xs font-semibold text-on-surface uppercase tracking-wider mb-1.5">
                   Ship to
                 </p>
                 <p>{cart.shipping_address.first_name} {cart.shipping_address.last_name}</p>
@@ -142,7 +142,7 @@ const Addresses = ({
               </div>
 
               <div className="flex flex-col gap-0.5" data-testid="shipping-contact-summary">
-                <p className="text-xs font-semibold text-[#1c1c1a] uppercase tracking-wider mb-1.5">
+                <p className="text-xs font-semibold text-on-surface uppercase tracking-wider mb-1.5">
                   Contact
                 </p>
                 <p>{cart.shipping_address.phone}</p>
@@ -150,7 +150,7 @@ const Addresses = ({
               </div>
 
               <div className="flex flex-col gap-0.5" data-testid="billing-address-summary">
-                <p className="text-xs font-semibold text-[#1c1c1a] uppercase tracking-wider mb-1.5">
+                <p className="text-xs font-semibold text-on-surface uppercase tracking-wider mb-1.5">
                   Billing
                 </p>
                 {sameAsBilling ? (
@@ -171,7 +171,7 @@ const Addresses = ({
         </div>
       )}
 
-      <div className="h-px bg-[#e8e4dc] mt-8" />
+      <div className="h-px bg-outline-variant mt-8" />
     </div>
   )
 }

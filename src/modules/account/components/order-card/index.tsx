@@ -49,17 +49,17 @@ const OrderCard = ({ order }: OrderCardProps) => {
       className="group block"
     >
       <div
-        className="relative bg-[#faf7f3] border border-[#e8e4dc] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_6px_28px_rgba(28,28,26,0.09)] hover:-translate-y-0.5"
-        style={{ borderLeft: "3px solid #6f4627" }}
+        className="relative bg-surface border border-outline-variant rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_6px_28px_rgba(28,28,26,0.09)] hover:-translate-y-0.5"
+        style={{ borderLeft: "3px solid var(--color-primary, #006875)" }}
       >
         <div className="p-6">
 
           {/* ── Header ── */}
           <div className="flex items-start justify-between mb-5">
             <div>
-              <p className="font-lora text-[21px] text-[#1c1c1a] leading-none mb-1.5">
+              <p className="font-bold text-[21px] text-on-surface leading-none mb-1.5">
                 Order{" "}
-                <span data-testid="order-display-id" className="text-[#6f4627]">
+                <span data-testid="order-display-id" className="text-primary">
                   #{order.display_id}
                 </span>
               </p>
@@ -81,14 +81,14 @@ const OrderCard = ({ order }: OrderCardProps) => {
               {previewItems.map((item) => (
                 <div
                   key={item.id}
-                  className="w-14 h-14 rounded-xl overflow-hidden bg-[#ede9e2] flex-shrink-0"
+                  className="w-14 h-14 rounded-xl overflow-hidden bg-surface-container-high flex-shrink-0"
                   data-testid="order-item"
                 >
                   <Thumbnail thumbnail={item.thumbnail} images={[]} size="full" />
                 </div>
               ))}
               {extraCount > 0 && (
-                <div className="w-14 h-14 rounded-xl bg-[#ede9e2] flex items-center justify-center flex-shrink-0">
+                <div className="w-14 h-14 rounded-xl bg-surface-container-high flex items-center justify-center flex-shrink-0">
                   <span className="text-xs text-[#9b9590]">+{extraCount}</span>
                 </div>
               )}
@@ -96,10 +96,10 @@ const OrderCard = ({ order }: OrderCardProps) => {
           )}
 
           {/* ── Footer ── */}
-          <div className="flex items-center justify-between pt-4 border-t border-[#e8e4dc]">
+          <div className="flex items-center justify-between pt-4 border-t border-outline-variant">
             <div className="flex items-baseline gap-2">
               <span
-                className="text-[15px] font-semibold text-[#1c1c1a]"
+                className="text-[15px] font-semibold text-on-surface"
                 data-testid="order-amount"
               >
                 {convertToLocale({
@@ -112,7 +112,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
               </span>
             </div>
             <span
-              className="flex items-center gap-1 text-xs text-[#6f4627] group-hover:gap-2 transition-all duration-200"
+              className="flex items-center gap-1 text-xs text-primary group-hover:gap-2 transition-all duration-200"
               data-testid="order-details-link"
             >
               View details

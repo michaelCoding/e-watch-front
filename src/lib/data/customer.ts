@@ -89,7 +89,7 @@ export async function login(_currentState: unknown, formData: FormData) {
 
 export async function signout(countryCode: string) {
   await sdk.auth.logout()
-  removeAuthToken()
+  await removeAuthToken()
   revalidateTag("auth")
   revalidateTag("customer")
   redirect(`/${countryCode}/account`)

@@ -6,11 +6,11 @@ import PaginatedProducts from './paginated-products'
 import StoreFilterBar from './store-filter-bar'
 
 const FALLBACK = {
-  headline: "Every object, a quiet intention.",
-  text: "Browse our collection of hand-turned wooden pieces.",
-  cta_text: "Shop the Collection",
-  cta_link: "/store",
-  image_url: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80",
+  headline: 'Precision Timepieces.',
+  text: 'Browse the Aevum collection — engineered for the digital curator.',
+  cta_text: 'Shop the Collection',
+  cta_link: '/store',
+  image_url: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1600&q=80',
 }
 
 const StoreTemplate = ({
@@ -29,7 +29,7 @@ const StoreTemplate = ({
   const b = banner ?? FALLBACK
 
   return (
-    <div className="bg-[#fcf9f4] min-h-screen">
+    <div className="bg-surface min-h-screen">
 
       {/* CMS-controlled banner */}
       <div className="px-8 max-w-screen-2xl mx-auto">
@@ -39,21 +39,22 @@ const StoreTemplate = ({
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url('${b.image_url}')` }}
           />
-          {/* Gradient overlay from left */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1c1c19]/50 to-transparent" />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-on-surface/60 to-transparent" />
           {/* Content */}
           <div className="absolute inset-0 flex items-center px-12">
             <div className="max-w-md space-y-4">
-              <h2 className="font-lora text-4xl medium:text-5xl large:text-6xl text-[#fcf9f4] leading-tight">
+              <h2 className="text-4xl medium:text-5xl large:text-6xl font-bold tracking-tight text-surface leading-tight">
                 {b.headline}
               </h2>
               {b.text && (
-                <p className="text-[#fcf9f4]/90 font-medium text-lg">{b.text}</p>
+                <p className="text-surface/90 font-medium text-lg">{b.text}</p>
               )}
               {b.cta_text && (
                 <a
                   href={b.cta_link}
-                  className="mt-4 inline-block bg-[#6f4627] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#8b5e3c] transition-all"
+                  className="mt-4 inline-block text-white px-8 py-3 rounded-full font-semibold transition-all hover:opacity-90"
+                  style={{ background: 'linear-gradient(135deg, #006875 0%, #00e5ff 100%)' }}
                 >
                   {b.cta_text}
                 </a>

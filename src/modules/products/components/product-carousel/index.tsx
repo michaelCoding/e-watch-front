@@ -21,16 +21,16 @@ export function ProductCarousel({ products, regionId, label, title, viewAll, tes
       <div className="flex items-end justify-between mb-10">
         <div>
           {label && (
-            <p className="text-xs uppercase tracking-[0.28em] text-[#6f4627]/60 font-semibold mb-4">{label}</p>
+            <p className="text-xs uppercase tracking-widest text-primary font-bold mb-4">{label}</p>
           )}
-          <h2 className="font-lora text-4xl large:text-5xl text-[#1C1C1A] -tracking-[0.02em]">
+          <h2 className="text-4xl font-bold tracking-tight text-on-surface">
             {title}
           </h2>
         </div>
         {viewAll && (
           <LocalizedClientLink
             href={viewAll.link}
-            className="hidden medium:inline-flex text-xs uppercase tracking-[0.1em] text-[#6B6860] hover:text-[#1C1C1A] transition-colors border-b border-[#6B6860] pb-px"
+            className="hidden medium:inline-flex text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 font-semibold text-sm"
           >
             {viewAll.text || 'View all'} →
           </LocalizedClientLink>
@@ -70,7 +70,7 @@ export function ProductCarousel({ products, regionId, label, title, viewAll, tes
         <div className="mt-8 text-center medium:hidden">
           <LocalizedClientLink
             href={viewAll.link}
-            className="text-xs uppercase tracking-[0.1em] text-[#6B6860] border-b border-[#6B6860] pb-px"
+            className="text-on-surface-variant hover:text-primary transition-colors font-semibold text-sm"
           >
             {viewAll.text || 'View all'} →
           </LocalizedClientLink>

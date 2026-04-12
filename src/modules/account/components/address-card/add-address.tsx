@@ -26,7 +26,7 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
 
   return (
     <div
-      className="rounded-2xl border border-dashed border-[#d4cfc7] bg-[#faf7f3] overflow-hidden transition-all duration-300"
+      className="rounded-xl border border-dashed border-[#d4cfc7] bg-surface overflow-hidden transition-all duration-300"
       data-testid="add-address-container"
     >
       {/* Collapsed state — add button */}
@@ -36,12 +36,12 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
           className="w-full h-full min-h-[140px] p-6 flex flex-col items-center justify-center gap-3 group"
           data-testid="add-address-button"
         >
-          <div className="w-10 h-10 rounded-full border border-[#d4cfc7] flex items-center justify-center text-[#9b9590] group-hover:border-[#6f4627] group-hover:text-[#6f4627] transition-all duration-200">
+          <div className="w-10 h-10 rounded-full border border-[#d4cfc7] flex items-center justify-center text-[#9b9590] group-hover:border-primary group-hover:text-primary transition-all duration-200">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M8 2v12M2 8h12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
             </svg>
           </div>
-          <span className="font-lora text-[14px] text-[#9b9590] group-hover:text-[#1c1c1a] transition-colors">
+          <span className="font-bold text-[14px] text-[#9b9590] group-hover:text-on-surface transition-colors">
             Add new address
           </span>
         </button>
@@ -51,10 +51,10 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
       <div className={`transition-all duration-300 ${isOpen ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`}>
         <div className="p-6">
           <div className="flex items-center justify-between mb-5">
-            <p className="font-lora text-[15px] text-[#1c1c1a]">New Address</p>
+            <p className="font-bold text-[15px] text-on-surface">New Address</p>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-[#9b9590] hover:text-[#1c1c1a] transition-colors p-1"
+              className="text-[#9b9590] hover:text-on-surface transition-colors p-1"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
@@ -98,14 +98,15 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="flex-1 py-2.5 text-sm text-[#6b6860] border border-[#e8e4dc] rounded-xl hover:bg-[#f0ede8] transition-all"
+                className="flex-1 py-2.5 text-sm text-on-surface-variant border border-outline-variant rounded-xl hover:bg-surface-container-low transition-all"
                 data-testid="cancel-button"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 py-2.5 text-sm text-white bg-[#1c1c1a] rounded-xl hover:bg-[#2d2d2a] transition-all"
+                className="flex-1 py-2.5 text-sm text-white rounded-full font-semibold hover:opacity-90 transition-all"
+                style={{ background: "linear-gradient(135deg, #006875 0%, #00e5ff 100%)" }}
                 data-testid="save-button"
               >
                 Save Address

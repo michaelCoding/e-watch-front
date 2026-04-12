@@ -5,8 +5,8 @@ import CartTotals from "@modules/common/components/cart-totals"
 const CheckoutSummary = ({ cart }: { cart: any }) => {
   return (
     <div className="sticky top-4 py-8 small:py-0">
-      <div className="bg-[#faf7f3] rounded-2xl border border-[#e8e4dc] p-6 flex flex-col gap-5">
-        <h2 className="font-lora text-[20px] text-[#1c1c1a]">Your Selection</h2>
+      <div className="bg-surface rounded-2xl border border-outline-variant p-6 flex flex-col gap-5">
+        <h2 className="font-bold text-[20px] text-on-surface">Your Selection</h2>
 
         {/* Items preview */}
         <div>
@@ -14,7 +14,7 @@ const CheckoutSummary = ({ cart }: { cart: any }) => {
         </div>
 
         {/* Totals */}
-        <div className="border-t border-[#e8e4dc] pt-4">
+        <div className="border-t border-outline-variant pt-4">
           <CartTotals totals={cart} />
         </div>
 

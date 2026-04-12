@@ -9,21 +9,19 @@ export default async function NavWrapper({ countryCode }: { countryCode: string 
   const cols = collections ?? []
 
   return (
-    <header className="sticky top-0 w-full z-50 bg-[#fcf9f4]/80 backdrop-blur-md transition-colors duration-300">
-      <div className="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto">
+    <header className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-xl shadow-sm">
+      <div className="flex justify-between items-center w-full px-8 h-20 max-w-screen-2xl mx-auto">
 
-        {/* Left: logo + nav */}
-        <div className="flex items-center gap-12">
-          <LocalizedClientLink
-            href="/"
-            className="font-lora text-2xl italic text-[#6f4627]"
-          >
-            The Woodenly
-          </LocalizedClientLink>
+        {/* Logo */}
+        <LocalizedClientLink
+          href="/"
+          className="text-2xl font-bold tracking-tighter text-zinc-900"
+        >
+          AEVUM
+        </LocalizedClientLink>
 
-          {/* Desktop nav — Home / Store / Journal with active state */}
-          <NavLinks />
-        </div>
+        {/* Desktop nav links */}
+        <NavLinks />
 
         {/* Right: cart + account + mobile trigger */}
         <div className="flex items-center gap-2">

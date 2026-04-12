@@ -29,7 +29,7 @@ const StepBadge = ({
       completed
         ? "bg-[#d4ede4] text-[#2d6b4f]"
         : active
-        ? "bg-[#6f4627] text-white"
+        ? "bg-primary text-white"
         : "bg-[#e8e4dc] text-[#9b9590]",
     ].join(" ")}
   >
@@ -89,7 +89,7 @@ const Payment = ({
         },
       },
       classes: {
-        base: "pt-3 pb-1 block w-full h-11 px-4 mt-0 bg-white border border-[#e8e4dc] rounded-xl appearance-none focus:outline-none focus:border-[#6f4627] transition-colors",
+        base: "pt-3 pb-1 block w-full h-11 px-4 mt-0 bg-white border border-outline-variant rounded-xl appearance-none focus:outline-none focus:border-primary transition-colors",
       },
     }),
     []
@@ -147,8 +147,8 @@ const Payment = ({
           <StepBadge num="03" active={isOpen} completed={!!completed} />
           <h2
             className={[
-              "font-lora text-[20px] leading-none transition-colors",
-              isOpen || completed ? "text-[#1c1c1a]" : "text-[#9b9590]",
+              "font-bold text-[20px] leading-none transition-colors",
+              isOpen || completed ? "text-on-surface" : "text-[#9b9590]",
             ].join(" ")}
           >
             Payment
@@ -157,7 +157,7 @@ const Payment = ({
         {!isOpen && paymentReady && (
           <button
             onClick={handleEdit}
-            className="text-xs text-[#6f4627] hover:underline transition-colors"
+            className="text-xs text-primary hover:underline transition-colors"
             data-testid="edit-payment-button"
           >
             Edit
@@ -186,8 +186,8 @@ const Payment = ({
             </RadioGroup>
 
             {isStripe && stripeReady && (
-              <div className="mt-4 p-4 bg-white border border-[#e8e4dc] rounded-xl">
-                <p className="text-xs font-semibold text-[#1c1c1a] uppercase tracking-wider mb-3">
+              <div className="mt-4 p-4 bg-white border border-outline-variant rounded-xl">
+                <p className="text-xs font-semibold text-on-surface uppercase tracking-wider mb-3">
                   Card details
                 </p>
                 <CardElement
@@ -206,11 +206,11 @@ const Payment = ({
         )}
 
         {paidByGiftcard && (
-          <div className="p-4 bg-[#faf7f3] border border-[#e8e4dc] rounded-xl">
-            <p className="text-xs font-semibold text-[#1c1c1a] uppercase tracking-wider mb-1">
+          <div className="p-4 bg-surface border border-outline-variant rounded-xl">
+            <p className="text-xs font-semibold text-on-surface uppercase tracking-wider mb-1">
               Payment method
             </p>
-            <p className="text-sm text-[#6b6860]" data-testid="payment-method-summary">
+            <p className="text-sm text-on-surface-variant" data-testid="payment-method-summary">
               Gift card
             </p>
           </div>
@@ -225,7 +225,8 @@ const Payment = ({
             (isStripe && !cardComplete) ||
             (!selectedPaymentMethod && !paidByGiftcard)
           }
-          className="w-full py-3.5 bg-[#1c1c1a] text-white text-sm font-semibold rounded-xl hover:bg-[#2d2d2a] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+          className="w-full py-3.5 rounded-full font-semibold text-white text-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-6 hover:opacity-90 transition-opacity duration-200"
+          style={{ background: "linear-gradient(135deg, #006875 0%, #00e5ff 100%)" }}
           data-testid="submit-payment-button"
         >
           {isLoading ? (
@@ -246,19 +247,19 @@ const Payment = ({
       {/* ── Closed (summary) state ── */}
       <div className={isOpen ? "hidden" : "block"}>
         {cart && paymentReady && activeSession ? (
-          <div className="flex gap-8 text-sm text-[#6b6860]">
+          <div className="flex gap-8 text-sm text-on-surface-variant">
             <div data-testid="payment-method-summary">
-              <p className="text-xs font-semibold text-[#1c1c1a] uppercase tracking-wider mb-1.5">
+              <p className="text-xs font-semibold text-on-surface uppercase tracking-wider mb-1.5">
                 Method
               </p>
               <p>{paymentInfoMap[selectedPaymentMethod]?.title || selectedPaymentMethod}</p>
             </div>
             <div data-testid="payment-details-summary">
-              <p className="text-xs font-semibold text-[#1c1c1a] uppercase tracking-wider mb-1.5">
+              <p className="text-xs font-semibold text-on-surface uppercase tracking-wider mb-1.5">
                 Details
               </p>
               <div className="flex items-center gap-2">
-                <div className="w-7 h-5 flex items-center justify-center bg-[#f0ede8] rounded">
+                <div className="w-7 h-5 flex items-center justify-center bg-surface-container-low rounded">
                   {paymentInfoMap[selectedPaymentMethod]?.icon || <CreditCard className="w-3 h-3 text-[#9b9590]" />}
                 </div>
                 <span>
@@ -270,8 +271,8 @@ const Payment = ({
             </div>
           </div>
         ) : paidByGiftcard ? (
-          <div className="text-sm text-[#6b6860]" data-testid="payment-method-summary">
-            <p className="text-xs font-semibold text-[#1c1c1a] uppercase tracking-wider mb-1.5">
+          <div className="text-sm text-on-surface-variant" data-testid="payment-method-summary">
+            <p className="text-xs font-semibold text-on-surface uppercase tracking-wider mb-1.5">
               Method
             </p>
             <p>Gift card</p>
@@ -279,7 +280,7 @@ const Payment = ({
         ) : null}
       </div>
 
-      <div className="h-px bg-[#e8e4dc] mt-8" />
+      <div className="h-px bg-outline-variant mt-8" />
     </div>
   )
 }

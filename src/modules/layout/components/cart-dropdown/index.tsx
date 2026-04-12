@@ -63,18 +63,18 @@ const CartDropdown = ({
     >
       <Popover className="relative">
         <Popover.Button
-          className="relative p-2 rounded-full hover:bg-[#f0ede8] transition-colors duration-200 outline-none"
+          className="relative hover:opacity-80 transition-all duration-300 outline-none"
           data-testid="nav-cart-link"
           aria-label="Shopping bag"
         >
           <span
-            className="material-symbols-outlined text-[#6f4627]"
+            className="material-symbols-outlined"
             style={{ fontVariationSettings: "'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24", fontSize: '22px' }}
           >
             shopping_bag
           </span>
           {totalItems > 0 && (
-            <span className="absolute top-1 right-1 w-[18px] h-[18px] bg-[#6f4627] text-white rounded-full text-[10px] font-semibold flex items-center justify-center leading-none">
+            <span className="absolute top-1 right-1 w-[18px] h-[18px] bg-primary text-white rounded-full text-[10px] font-semibold flex items-center justify-center leading-none">
               {totalItems > 9 ? '9+' : totalItems}
             </span>
           )}

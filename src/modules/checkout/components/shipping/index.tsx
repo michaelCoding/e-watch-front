@@ -28,7 +28,7 @@ const StepBadge = ({
       completed
         ? "bg-[#d4ede4] text-[#2d6b4f]"
         : active
-        ? "bg-[#6f4627] text-white"
+        ? "bg-primary text-white"
         : "bg-[#e8e4dc] text-[#9b9590]",
     ].join(" ")}
   >
@@ -90,8 +90,8 @@ const Shipping: React.FC<ShippingProps> = ({
           <StepBadge num="02" active={isOpen} completed={completed} />
           <h2
             className={[
-              "font-lora text-[20px] leading-none transition-colors",
-              isOpen || completed ? "text-[#1c1c1a]" : "text-[#9b9590]",
+              "font-bold text-[20px] leading-none transition-colors",
+              isOpen || completed ? "text-on-surface" : "text-[#9b9590]",
             ].join(" ")}
           >
             Delivery
@@ -100,7 +100,7 @@ const Shipping: React.FC<ShippingProps> = ({
         {completed && (
           <button
             onClick={handleEdit}
-            className="text-xs text-[#6f4627] hover:underline transition-colors"
+            className="text-xs text-primary hover:underline transition-colors"
             data-testid="edit-delivery-button"
           >
             Edit
@@ -123,8 +123,8 @@ const Shipping: React.FC<ShippingProps> = ({
                       [
                         "flex items-center justify-between px-4 py-3.5 rounded-xl border cursor-pointer transition-all duration-200",
                         checked
-                          ? "border-[#6f4627] bg-[#fef9f5]"
-                          : "border-[#e8e4dc] bg-white hover:border-[#c4b89a]",
+                          ? "border-primary bg-surface-container-low"
+                          : "border-outline-variant bg-white hover:border-[#c4b89a]",
                       ].join(" ")
                     }
                   >
@@ -135,17 +135,17 @@ const Shipping: React.FC<ShippingProps> = ({
                             className={[
                               "w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all",
                               checked
-                                ? "border-[#6f4627]"
+                                ? "border-primary"
                                 : "border-[#d4cfc7]",
                             ].join(" ")}
                           >
                             {checked && (
-                              <div className="w-2 h-2 rounded-full bg-[#6f4627]" />
+                              <div className="w-2 h-2 rounded-full bg-primary" />
                             )}
                           </div>
-                          <span className="text-sm text-[#1c1c1a]">{option.name}</span>
+                          <span className="text-sm text-on-surface">{option.name}</span>
                         </div>
-                        <span className="text-sm font-semibold text-[#1c1c1a]">
+                        <span className="text-sm font-semibold text-on-surface">
                           {convertToLocale({
                             amount: option.amount!,
                             currency_code: cart?.currency_code,
@@ -164,7 +164,8 @@ const Shipping: React.FC<ShippingProps> = ({
           <button
             onClick={handleSubmit}
             disabled={isLoading || !cart.shipping_methods?.[0]}
-            className="w-full py-3.5 bg-[#1c1c1a] text-white text-sm font-semibold rounded-xl hover:bg-[#2d2d2a] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+            className="w-full py-3.5 rounded-full font-semibold text-white text-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed mt-4 hover:opacity-90 transition-opacity duration-200"
+            style={{ background: "linear-gradient(135deg, #006875 0%, #00e5ff 100%)" }}
             data-testid="submit-delivery-option-button"
           >
             {isLoading ? (
@@ -181,10 +182,10 @@ const Shipping: React.FC<ShippingProps> = ({
         </div>
       ) : (
         /* ── Closed (summary) state ── */
-        <div className="text-sm text-[#6b6860]">
+        <div className="text-sm text-on-surface-variant">
           {(cart.shipping_methods?.length ?? 0) > 0 && (
             <div className="flex flex-col gap-0.5">
-              <p className="text-xs font-semibold text-[#1c1c1a] uppercase tracking-wider mb-1.5">
+              <p className="text-xs font-semibold text-on-surface uppercase tracking-wider mb-1.5">
                 Method
               </p>
               <p>
@@ -203,7 +204,7 @@ const Shipping: React.FC<ShippingProps> = ({
         </div>
       )}
 
-      <div className="h-px bg-[#e8e4dc] mt-8" />
+      <div className="h-px bg-outline-variant mt-8" />
     </div>
   )
 }

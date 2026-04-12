@@ -15,17 +15,17 @@ const PaymentDetails = ({ order }: PaymentDetailsProps) => {
 
   return (
     <div className="mb-9">
-      <p className="font-headline text-[1.15rem] text-[var(--scandi-fg,#1C1C1A)] mb-7 tracking-wide">
+      <p className="font-bold text-[1.15rem] text-on-surface mb-7 tracking-wide">
         Payment
       </p>
 
-      <div className="grid grid-cols-3 gap-6 font-body text-sm">
+      <div className="grid grid-cols-3 gap-6 text-sm">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--scandi-fg-muted,#6B6860)] mb-2">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-on-surface-variant mb-2">
             Method
           </p>
           <p
-            className="text-[var(--scandi-fg-muted,#6B6860)]"
+            className="text-on-surface-variant"
             data-testid="payment-method"
           >
             {paymentInfoMap[payment.provider_id]?.title ?? payment.provider_id}
@@ -33,15 +33,15 @@ const PaymentDetails = ({ order }: PaymentDetailsProps) => {
         </div>
 
         <div className="col-span-2">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--scandi-fg-muted,#6B6860)] mb-2">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-on-surface-variant mb-2">
             Details
           </p>
           <div
-            className="flex items-center gap-2 text-[var(--scandi-fg-muted,#6B6860)]"
+            className="flex items-center gap-2 text-on-surface-variant"
             data-testid="payment-amount"
           >
             {paymentInfoMap[payment.provider_id]?.icon && (
-              <span className="flex items-center justify-center h-6 w-9 bg-[var(--scandi-bg-card,#F0EDE6)] rounded">
+              <span className="flex items-center justify-center h-6 w-9 bg-surface-container-low rounded">
                 {paymentInfoMap[payment.provider_id].icon}
               </span>
             )}

@@ -16,20 +16,20 @@ const Item = ({ item }: ItemProps) => {
       data-testid="product-row"
     >
       {/* Thumbnail */}
-      <div className="w-[64px] h-[64px] shrink-0 rounded-sm overflow-hidden bg-[var(--scandi-bg-card,#F0EDE6)]">
+      <div className="w-[64px] h-[64px] shrink-0 rounded-sm overflow-hidden bg-surface-container-low">
         <Thumbnail thumbnail={item.thumbnail} size="square" />
       </div>
 
       {/* Name + variant */}
       <div className="flex-1 min-w-0 pt-0.5">
         <p
-          className="font-body text-sm font-medium text-[var(--scandi-fg,#1C1C1A)] leading-snug"
+          className="text-sm font-medium text-on-surface leading-snug"
           data-testid="product-name"
         >
           {item.title}
         </p>
         {item.variant && (
-          <div className="mt-0.5 text-xs text-[var(--scandi-fg-muted,#6B6860)]">
+          <div className="mt-0.5 text-xs text-on-surface-variant">
             <LineItemOptions
               variant={item.variant}
               data-testid="product-variant"
@@ -39,13 +39,13 @@ const Item = ({ item }: ItemProps) => {
       </div>
 
       {/* Qty × price + line total */}
-      <div className="shrink-0 text-right font-body pt-0.5">
-        <div className="text-xs text-[var(--scandi-fg-muted,#6B6860)] flex items-center gap-1 justify-end">
+      <div className="shrink-0 text-right pt-0.5">
+        <div className="text-xs text-on-surface-variant flex items-center gap-1 justify-end">
           <span data-testid="product-quantity">{item.quantity}</span>
           <span>×</span>
           <LineItemUnitPrice item={item} style="tight" />
         </div>
-        <div className="text-sm font-semibold text-[var(--scandi-fg,#1C1C1A)] mt-0.5">
+        <div className="text-sm font-semibold text-on-surface mt-0.5">
           <LineItemPrice item={item} style="tight" />
         </div>
       </div>

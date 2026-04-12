@@ -99,7 +99,16 @@ export async function addToCart({
     .then(() => {
       revalidateTag("cart")
     })
-    .catch(medusaError)
+    .catch((err: any) => {
+      console.error("[addToCart] error details:", {
+        status: err.status,
+        statusText: err.statusText,
+        message: err.message,
+        cartId: cart.id,
+        variantId,
+      })
+      return medusaError(err)
+    })
 }
 
 export async function updateLineItem({

@@ -31,7 +31,8 @@ const PlaceOrderButton = ({
     onClick={onClick}
     type={onClick ? "button" : "submit"}
     data-testid={dataTestId}
-    className="w-full py-4 bg-[#6f4627] text-white text-sm font-semibold rounded-xl hover:bg-[#5c3820] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+    className="w-full py-4 rounded-full font-semibold text-white text-sm flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed hover:opacity-90 transition-opacity duration-200"
+    style={{ background: "linear-gradient(135deg, #006875 0%, #00e5ff 100%)" }}
   >
     {loading ? (
       <Spinner />

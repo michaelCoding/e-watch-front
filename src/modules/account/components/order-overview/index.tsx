@@ -21,7 +21,7 @@ const OrderOverview = ({ orders }: { orders: HttpTypes.StoreOrder[] }) => {
       data-testid="no-orders-container"
     >
       {/* Decorative icon */}
-      <div className="w-16 h-16 rounded-full bg-[#f0ede8] flex items-center justify-center mb-6">
+      <div className="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center mb-6">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
           <rect x="4" y="9" width="20" height="15" rx="2" stroke="#9b9590" strokeWidth="1.4"/>
           <path d="M9 9V7a5 5 0 0 1 10 0v2" stroke="#9b9590" strokeWidth="1.4" strokeLinecap="round"/>
@@ -29,7 +29,7 @@ const OrderOverview = ({ orders }: { orders: HttpTypes.StoreOrder[] }) => {
         </svg>
       </div>
 
-      <h2 className="font-lora text-[20px] text-[#1c1c1a] mb-2">
+      <h2 className="font-bold text-[20px] text-on-surface mb-2">
         No orders yet
       </h2>
       <p className="text-sm text-[#9b9590] max-w-xs leading-relaxed mb-8">

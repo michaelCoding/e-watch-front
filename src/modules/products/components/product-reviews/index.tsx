@@ -83,14 +83,14 @@ export default function ProductReviews() {
               <div key={star} className="flex items-center gap-4">
                 <span className="text-xs font-semibold w-8">{star}★</span>
                 <div className="flex-1 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-                  <div className="bg-[#6f4627] h-full" style={{ width: `${pct}%` }} />
+                  <div className="bg-primary h-full" style={{ width: `${pct}%` }} />
                 </div>
                 <span className="text-xs text-on-surface-variant w-8">{pct}%</span>
               </div>
             ))}
           </div>
 
-          <button className="w-full py-3 border border-[#6f4627] text-[#6f4627] rounded-md font-semibold text-sm hover:bg-[#6f4627]/5 transition-all uppercase tracking-widest">
+          <button className="w-full py-3 border border-primary text-primary rounded-full font-semibold text-sm hover:bg-primary/5 transition-all uppercase tracking-widest">
             Share your experience
           </button>
         </div>

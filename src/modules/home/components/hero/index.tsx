@@ -9,52 +9,51 @@ type HeroConfig = {
 }
 
 const Hero = ({ data }: { data: HeroConfig }) => {
-  const dotIdx = data.headline.indexOf('. ')
-  const line1 = dotIdx !== -1 ? data.headline.slice(0, dotIdx + 1) : data.headline
-  const line2 = dotIdx !== -1 ? data.headline.slice(dotIdx + 2) : null
-
   return (
-    <div className="px-8 max-w-screen-2xl mx-auto">
-      <section className="mt-8 rounded-xl overflow-hidden relative aspect-[21/9] medium:aspect-[21/7]">
-        {/* Background image */}
-        <Image
-          src={data.image.url}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover object-center"
-          priority
-        />
-        {/* Gradient overlay from left */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1c1c19]/55 to-transparent" />
+    <section className="relative min-h-[921px] flex flex-col items-center justify-center px-8 overflow-hidden">
+      <div className="max-w-7xl w-full grid grid-cols-1 large:grid-cols-12 gap-12 items-center">
 
-        {/* Left-aligned content */}
-        <div className="absolute inset-0 flex items-center px-8 medium:px-16">
-          <div className="max-w-lg space-y-6">
-            <h1 className="font-lora text-4xl medium:text-5xl large:text-6xl text-[#fcf9f4] leading-tight -tracking-[0.02em]">
-              {line1}
-              {line2 && (
-                <>
-                  <br />
-                  {line2}
-                </>
-              )}
-            </h1>
-            {data.text && (
-              <p className="text-[#fcf9f4]/85 font-medium text-base medium:text-lg leading-relaxed">
-                {data.text}
-              </p>
-            )}
+        {/* Left: text */}
+        <div className="large:col-span-6 z-10">
+          <h1 className="text-6xl medium:text-8xl font-bold tracking-tight text-on-surface leading-[1.1] mb-6">
+            The Art of <br />
+            <span className="text-gradient">Precision.</span>
+          </h1>
+          <p className="text-xl medium:text-2xl text-on-surface-variant mb-10 max-w-lg leading-relaxed">
+            {data.text}
+          </p>
+          <div className="flex flex-wrap gap-4">
             <LocalizedClientLink
               href={data.cta.link}
-              className="inline-flex items-center gap-3 bg-[#6f4627] text-white px-8 py-4 rounded-full text-base font-semibold hover:bg-[#8b5e3c] transition-all active:scale-95"
+              className="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-semibold rounded-full glow-primary transition-all duration-300"
             >
               {data.cta.text}
             </LocalizedClientLink>
+            <LocalizedClientLink
+              href="/heritage"
+              className="px-8 py-4 bg-surface-container-highest text-on-surface font-semibold rounded-full hover:bg-surface-container-high transition-all duration-300 flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined">play_circle</span>
+              Watch the Film
+            </LocalizedClientLink>
           </div>
         </div>
-      </section>
-    </div>
+
+        {/* Right: watch image with glow */}
+        <div className="large:col-span-6 relative flex justify-center large:justify-end">
+          <div className="absolute -z-10 w-[140%] h-[140%] bg-primary-fixed/20 blur-[120px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+          <Image
+            src={data.image.url}
+            alt={data.image.alt}
+            width={640}
+            height={640}
+            priority
+            className="w-full max-w-2xl object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)]"
+          />
+        </div>
+
+      </div>
+    </section>
   )
 }
 

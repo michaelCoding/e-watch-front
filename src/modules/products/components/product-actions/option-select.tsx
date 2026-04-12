@@ -74,10 +74,10 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
               title={!available ? "Out of stock" : undefined}
               className={
                 isActive
-                  ? "px-6 py-2 bg-[#6f4627] text-white rounded-md font-medium text-sm transition-all"
+                  ? "px-6 py-2 bg-primary text-on-primary rounded-lg border border-primary font-medium text-sm transition-[background-color,border-color] duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
                   : !available
-                  ? "relative px-6 py-2 border border-outline-variant text-on-surface-variant/40 rounded-md font-medium text-sm cursor-not-allowed overflow-hidden"
-                  : "px-6 py-2 border border-outline-variant text-on-surface-variant rounded-md font-medium text-sm hover:bg-surface-container-low transition-all"
+                  ? "relative px-6 py-2 border border-outline-variant text-on-surface-variant/40 rounded-md font-medium text-sm cursor-not-allowed overflow-hidden focus:outline-none"
+                  : "px-6 py-2 border border-outline-variant text-on-surface-variant rounded-md font-medium text-sm hover:bg-surface-container-low transition-[background-color,border-color] duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-outline focus-visible:ring-offset-1"
               }
             >
               {v}

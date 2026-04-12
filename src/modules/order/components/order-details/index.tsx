@@ -12,12 +12,12 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
   }
 
   return (
-    <div className="font-body text-sm text-[var(--scandi-fg-muted,#6B6860)] leading-relaxed space-y-2">
+    <div className="text-sm text-on-surface-variant leading-relaxed space-y-2">
       <p>
         Your order has been received and is being prepared with care in our
         atelier. A confirmation has been sent to{" "}
         <span
-          className="font-semibold text-[var(--scandi-fg,#1C1C1A)]"
+          className="font-semibold text-on-surface"
           data-testid="order-email"
         >
           {order.email}
@@ -27,11 +27,11 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
 
       <div className="flex flex-wrap gap-x-6 gap-y-1 pt-1">
         <span>
-          <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--scandi-fg-muted)]">
+          <span className="text-[11px] uppercase tracking-[0.15em] text-on-surface-variant">
             Date&nbsp;
           </span>
           <span
-            className="text-[var(--scandi-fg,#1C1C1A)] font-medium"
+            className="text-on-surface font-medium"
             data-testid="order-date"
           >
             {new Date(order.created_at).toLocaleDateString("en-GB", {
@@ -43,11 +43,11 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
         </span>
 
         <span>
-          <span className="text-[11px] uppercase tracking-[0.15em] text-[var(--scandi-fg-muted)]">
+          <span className="text-[11px] uppercase tracking-[0.15em] text-on-surface-variant">
             Order&nbsp;
           </span>
           <span
-            className="text-[var(--scandi-fg,#1C1C1A)] font-medium"
+            className="text-on-surface font-medium"
             data-testid="order-id"
           >
             #{order.display_id}
@@ -60,7 +60,7 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
           <span>
             <span className="text-[11px] uppercase tracking-[0.15em]">Status&nbsp;</span>
             <span
-              className="font-medium text-[var(--scandi-fg,#1C1C1A)]"
+              className="font-medium text-on-surface"
               data-testid="order-status"
             >
               {formatStatus(order.fulfillment_status ?? "pending")}
@@ -69,7 +69,7 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
           <span>
             <span className="text-[11px] uppercase tracking-[0.15em]">Payment&nbsp;</span>
             <span
-              className="font-medium text-[var(--scandi-fg,#1C1C1A)]"
+              className="font-medium text-on-surface"
               data-testid="order-payment-status"
             >
               {formatStatus(order.payment_status ?? "pending")}

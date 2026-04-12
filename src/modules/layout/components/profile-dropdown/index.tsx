@@ -30,7 +30,7 @@ const ProfileDropdown = ({ loggedIn }: { loggedIn: boolean }) => {
       <Popover className="relative">
         {/* Trigger */}
         <Popover.Button
-          className="scale-95 active:scale-90 transition-transform text-[#6f4627] outline-none flex items-center"
+          className="hover:opacity-80 transition-all duration-300 outline-none flex items-center"
           data-testid="profile-dropdown-button"
           aria-label="Account"
         >
@@ -38,7 +38,7 @@ const ProfileDropdown = ({ loggedIn }: { loggedIn: boolean }) => {
             className="material-symbols-outlined"
             style={{ fontVariationSettings: loggedIn ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24" }}
           >
-            account_circle
+            person
           </span>
         </Popover.Button>
 

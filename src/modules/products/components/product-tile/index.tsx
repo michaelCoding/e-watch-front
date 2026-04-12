@@ -27,13 +27,13 @@ export function ProductTile({
 
   return (
     <div
-      className="group flex flex-col"
+      className="group flex flex-col bg-surface-container-lowest rounded-xl p-4 md:p-6 transition-all duration-500 hover:shadow-[0_12px_40px_rgba(25,28,29,0.06)]"
       data-testid={formatNameForTestId(`${product.title}-product-tile`)}
     >
       {/* Image */}
-      <div className="relative overflow-hidden bg-[#F0EDE6] aspect-[3/4]">
+      <div className="relative overflow-hidden bg-surface-container-low aspect-square rounded-lg mb-4">
         {isNew && (
-          <span className="absolute top-3 left-3 z-10 text-[10px] uppercase tracking-[0.1em] bg-[#7A9E7E] text-white px-2 py-1">
+          <span className="absolute top-3 left-3 z-10 text-[10px] uppercase tracking-widest bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-bold">
             New
           </span>
         )}
@@ -42,19 +42,19 @@ export function ProductTile({
             src={product.thumbnail}
             alt={product.title}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-110"
           />
         </LocalizedClientLink>
         {/* Quick add on hover */}
-        <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-[#1C1C1A]/90">
+        <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-on-surface/90">
           <ProductActions productHandle={product.handle} regionId={regionId} />
         </div>
       </div>
 
       {/* Info */}
-      <div className="pt-4 pb-2">
+      <div className="pt-2 pb-1">
         <LocalizedClientLink href={`/products/${product.handle}`}>
-          <p className="text-sm text-[#1C1C1A] leading-snug mb-1 group-hover:text-[#C07B5A] transition-colors duration-200">
+          <p className="font-bold text-on-surface leading-snug mb-1 hover:text-primary transition-colors duration-200">
             {product.title}
           </p>
         </LocalizedClientLink>

@@ -4,31 +4,28 @@ import { usePathname } from 'next/navigation'
 import LocalizedClientLink from '@modules/common/components/localized-client-link'
 
 const links = [
-  { label: 'Home', href: '/' },
-  { label: 'Store', href: '/store' },
-  { label: 'Journal', href: '/blog' },
+  { label: 'Collections', href: '/store' },
+  { label: 'Heritage', href: '/heritage' },
+  { label: 'Journal', href: '/journal' },
 ]
 
 export function NavLinks() {
   const pathname = usePathname()
 
   return (
-    <nav className="hidden medium:flex gap-8">
+    <nav className="hidden medium:flex items-center space-x-10">
       {links.map(({ label, href }) => {
-        const active =
-          href === '/'
-            ? /^\/[a-z]{2}(\/)?$/.test(pathname)
-            : pathname.includes(href)
+        const active = pathname.includes(href)
 
         return (
           <LocalizedClientLink
-            key={href}
+            key={label}
             href={href}
             className={[
-              'font-medium tracking-wide transition-colors duration-300',
+              'tracking-tight transition-colors font-inter',
               active
-                ? 'text-[#6f4627] border-b-2 border-[#6f4627] pb-1'
-                : 'text-[#1c1c19]/60 hover:text-[#6f4627]',
+                ? 'text-cyan-600 font-semibold border-b-2 border-cyan-500 pb-1'
+                : 'text-zinc-500 hover:text-zinc-900',
             ].join(' ')}
           >
             {label}

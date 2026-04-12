@@ -17,7 +17,9 @@ export default async function PageLayout(props: {
   return (
     <>
       <Nav countryCode={countryCode} />
-      {props.children}
+      <main className="pt-20">
+        {props.children}
+      </main>
       <Footer />
     </>
   )

@@ -23,15 +23,15 @@ const Review = ({ cart }: { cart: any }) => {
         <div
           className={[
             "w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-semibold",
-            isOpen ? "bg-[#6f4627] text-white" : "bg-[#e8e4dc] text-[#9b9590]",
+            isOpen ? "bg-primary text-white" : "bg-[#e8e4dc] text-[#9b9590]",
           ].join(" ")}
         >
           04
         </div>
         <h2
           className={[
-            "font-lora text-[20px] leading-none transition-colors",
-            isOpen ? "text-[#1c1c1a]" : "text-[#9b9590]",
+            "font-bold text-[20px] leading-none transition-colors",
+            isOpen ? "text-on-surface" : "text-[#9b9590]",
           ].join(" ")}
         >
           Review &amp; Place Order

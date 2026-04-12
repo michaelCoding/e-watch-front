@@ -1,69 +1,92 @@
-import Image from 'next/image'
 import LocalizedClientLink from '@modules/common/components/localized-client-link'
 
-const scenes = [
+const watches = [
   {
-    title: 'Quiet Morning',
-    line: 'A slow start, with light and wood.',
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
-    link: '/store',
+    name: 'Stealth Titanium',
+    edition: 'Midnight Black Edition',
+    price: '$1,290.00',
+    badge: 'New',
+    image: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&q=80',
+    href: '/store',
   },
   {
-    title: 'Slow Evening',
-    line: 'Where time softens.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
-    link: '/store',
+    name: 'Origin Silver',
+    edition: 'Brushed Steel Edition',
+    price: '$1,150.00',
+    badge: 'New',
+    image: 'https://images.unsplash.com/photo-1548171915-f38b7035c296?w=600&q=80',
+    href: '/store',
   },
   {
-    title: 'A Gift That Stays',
-    line: 'Not just a gift, but a memory.',
-    image: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&q=80',
-    link: '/store',
+    name: 'Horizon Gold',
+    edition: '24k Rose Plated',
+    price: '$1,850.00',
+    badge: null,
+    image: 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=600&q=80',
+    href: '/store',
   },
   {
-    title: 'With Companions',
-    line: 'A shared quiet life.',
-    image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=80',
-    link: '/store',
+    name: 'Aero Carbon',
+    edition: 'Racing Weave Series',
+    price: '$1,490.00',
+    badge: null,
+    image: 'https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=600&q=80',
+    href: '/store',
   },
 ]
 
 export default function Moments() {
   return (
-    <section className="py-20 large:py-28 px-8 bg-[#fcf9f4]">
+    <section className="py-24 px-8 bg-surface-container-low">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-16">
-          <p className="text-xs uppercase tracking-[0.28em] text-[#6f4627]/60 font-semibold mb-4">Discovery</p>
-          <h2 className="font-lora text-4xl large:text-5xl text-[#1C1C1A] -tracking-[0.02em]">
-            Curated Moments
-          </h2>
+
+        {/* Header */}
+        <div className="flex flex-col medium:flex-row justify-between items-end mb-16 gap-4">
+          <div>
+            <span className="text-primary font-bold tracking-widest text-xs uppercase mb-2 block">
+              Curated Selection
+            </span>
+            <h2 className="text-4xl font-bold tracking-tight text-on-surface">Precision Pieces</h2>
+          </div>
+          <LocalizedClientLink
+            href="/store"
+            className="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 font-semibold"
+          >
+            View All Collections
+            <span className="material-symbols-outlined">arrow_forward</span>
+          </LocalizedClientLink>
         </div>
 
-        <div className="grid grid-cols-2 medium:grid-cols-4 gap-6 large:gap-8">
-          {scenes.map((scene, i) => (
+        {/* 4-up grid */}
+        <div className="grid grid-cols-2 large:grid-cols-4 gap-8">
+          {watches.map((w) => (
             <LocalizedClientLink
-              key={scene.title}
-              href={scene.link}
-              className={`group cursor-pointer${i % 2 === 1 ? ' medium:mt-16' : ''}`}
+              key={w.name}
+              href={w.href}
+              className="group relative flex flex-col bg-surface-container-lowest rounded-xl p-6 transition-all duration-500 hover:shadow-[-20px_0_40px_rgba(0,0,0,0.03)]"
             >
-              {/* Portrait card image */}
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-6 bg-[#f6f3ee]">
-                <Image
-                  src={scene.image}
-                  alt=""
-                  fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-110"
+              {w.badge && (
+                <div className="absolute top-6 right-6 z-10">
+                  <span className="px-3 py-1 bg-primary-container text-on-primary-container text-[10px] font-bold uppercase tracking-widest rounded-full">
+                    {w.badge}
+                  </span>
+                </div>
+              )}
+              <div className="aspect-square mb-8 overflow-hidden rounded-lg flex items-center justify-center p-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={w.image}
+                  alt={w.name}
+                  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
-
-              <h3 className="font-lora text-2xl text-[#1C1C1A] mb-2">{scene.title}</h3>
-              <p className="text-sm text-[#6B6860] flex items-center gap-2 group-hover:text-[#6f4627] transition-colors">
-                Enter scene <span aria-hidden="true">→</span>
-              </p>
+              <h3 className="text-lg font-bold text-on-surface">{w.name}</h3>
+              <p className="text-sm text-on-surface-variant mb-4 tracking-tight">{w.edition}</p>
+              <p className="text-xl font-bold text-on-background mt-auto">{w.price}</p>
             </LocalizedClientLink>
           ))}
         </div>
+
       </div>
     </section>
   )

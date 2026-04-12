@@ -10,7 +10,7 @@ const Items = ({ items }: ItemsProps) => {
 
   return (
     <div
-      className="flex flex-col divide-y divide-[var(--scandi-border,#E8E4DC)]"
+      className="flex flex-col divide-y divide-outline-variant"
       data-testid="products-table"
     >
       {items

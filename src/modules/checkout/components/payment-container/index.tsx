@@ -29,8 +29,8 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
         className={[
           "flex flex-col gap-y-2 cursor-pointer rounded-xl border px-4 py-3.5 mb-2 transition-all duration-200",
           isSelected
-            ? "border-[#6f4627] bg-[#fef9f5]"
-            : "border-[#e8e4dc] bg-white hover:border-[#c4b89a]",
+            ? "border-primary bg-surface-container-low"
+            : "border-outline-variant bg-white hover:border-[#c4b89a]",
           disabled ? "opacity-50 cursor-not-allowed" : "",
         ].join(" ")}
       >
@@ -40,15 +40,15 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
             <div
               className={[
                 "w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all",
-                isSelected ? "border-[#6f4627]" : "border-[#d4cfc7]",
+                isSelected ? "border-primary" : "border-[#d4cfc7]",
               ].join(" ")}
             >
               {isSelected && (
-                <div className="w-2 h-2 rounded-full bg-[#6f4627]" />
+                <div className="w-2 h-2 rounded-full bg-primary" />
               )}
             </div>
 
-            <span className="text-sm text-[#1c1c1a]">
+            <span className="text-sm text-on-surface">
               {paymentInfoMap[paymentProviderId]?.title || paymentProviderId}
             </span>
 
