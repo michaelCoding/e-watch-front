@@ -3,9 +3,8 @@ export const runtime = 'edge';
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { getCategoryByHandle, listCategories } from '@lib/data/categories'
-import { listRegions } from '@lib/data/regions'
-import { StoreProductCategory, StoreRegion } from '@medusajs/types'
+import { getCategoryByHandle } from '@lib/data/categories'
+import { StoreProductCategory } from '@medusajs/types'
 import { Box } from '@modules/common/components/box'
 import { Container } from '@modules/common/components/container'
 import { Heading } from '@modules/common/components/heading'
@@ -14,33 +13,6 @@ import StoreBreadcrumbs from '@modules/store/templates/breadcrumbs'
 interface CategoryPageLayoutProps {
   children: React.ReactNode
   params: Promise<{ category: string[] }>
-}
-
-export async function generateStaticParams() {
-  const product_categories = await listCategories()
-
-  if (!product_categories) {
-    return []
-  }
-
-  const countryCodes = await listRegions().then((regions: StoreRegion[]) =>
-    regions?.map((r) => r.countries?.map((c) => c.iso_2)).flat()
-  )
-
-  const categoryHandles = product_categories.map(
-    (category: any) => category.handle
-  )
-
-  const staticParams = countryCodes
-    ?.map((countryCode: string | undefined) =>
-      categoryHandles.map((handle: any) => ({
-        countryCode,
-        category: [handle],
-      }))
-    )
-    .flat()
-
-  return staticParams
 }
 
 export async function generateMetadata(
