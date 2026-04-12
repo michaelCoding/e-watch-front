@@ -6,6 +6,7 @@ checkEnvVariables()
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  distDir: ".next",   // 修改此路径以自定义 build 输出目录
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
