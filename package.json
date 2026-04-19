@@ -14,7 +14,7 @@
     "build": "npm run wait && npm run launcher build",
     "start": "npm run launcher start",
     "build:next": "next build",
-    "build:cf": "npx vercel build && npx cross-env npm_config_user_agent=npm/10.0.0 next-on-pages --skip-build",
+    "build:cf": "node scripts/build-cf.js",
     "preview:cf": "pnpm build:cf && wrangler pages dev",
     "lint": "next lint",
     "analyze": "ANALYZE=true next build",
