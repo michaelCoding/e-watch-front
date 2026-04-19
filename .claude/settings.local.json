@@ -16,7 +16,10 @@
       "Bash(grep -rn \"axios\" src/ --include=\"*.ts\" --include=\"*.tsx\")",
       "Bash(powershell:*)",
       "Bash(pnpm install:*)",
-      "Bash(node -e \"const p = require\\('./node_modules/react/package.json'\\); console.log\\('React version:', p.version\\)\")"
+      "Bash(node -e \"const p = require\\('./node_modules/react/package.json'\\); console.log\\('React version:', p.version\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git reset *)"
     ]
   }
 }
