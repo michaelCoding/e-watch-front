@@ -3,16 +3,16 @@ export const runtime = 'edge';
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Aevum',
-  description: 'How Aevum SA collects, uses, and protects your personal data.',
+  title: 'Privacy Policy — Aevuno',
+  description: 'How Aevuno SA collects, uses, and protects your personal data.',
 }
 
 const sections = [
   {
     title: '1. Who We Are',
     body: [
-      'Aevum SA ("Aevum", "we", "our", or "us") is a luxury timepiece company registered in Geneva, Switzerland (CHE-412.830.991). Our registered office is at 14 Rue de la Corraterie, 1204 Geneva, Switzerland.',
-      'We operate the e-commerce storefront at aevum.com and are the data controller for all personal data collected through this platform.',
+      'Aevuno SA ("Aevuno", "we", "our", or "us") is a luxury timepiece company registered in Geneva, Switzerland (CHE-412.830.991). Our registered office is at 14 Rue de la Corraterie, 1204 Geneva, Switzerland.',
+      'We operate the e-commerce storefront at aevuno.com and are the data controller for all personal data collected through this platform.',
     ],
   },
   {
@@ -39,12 +39,12 @@ const sections = [
   {
     title: '4. Sharing Your Data',
     body: [
-      'Aevum does not sell, rent, or trade your personal data. We share data only with the following categories of trusted service providers, bound by data processing agreements:',
+      'Aevuno does not sell, rent, or trade your personal data. We share data only with the following categories of trusted service providers, bound by data processing agreements:',
       '**Logistics partners** — shipping carriers and fulfilment centres receive your name and delivery address solely to dispatch and track your order.',
       '**Payment processors** — PayPal receives transaction data necessary to authorise and complete your payment.',
       '**Cloud infrastructure** — our platform runs on Railway (Railway Corporation, USA) and Cloudflare (Cloudflare Inc., USA). Data transfers to these providers are governed by Standard Contractual Clauses approved by the European Commission.',
       '**Email delivery** — transactional and marketing emails are sent via Resend (Resend Inc., USA) under equivalent transfer safeguards.',
-      'We may disclose data if required by a court order, regulatory authority, or to protect the rights, property, or safety of Aevum or others.',
+      'We may disclose data if required by a court order, regulatory authority, or to protect the rights, property, or safety of Aevuno or others.',
     ],
   },
   {
@@ -73,7 +73,7 @@ const sections = [
       '**Right to restriction** — ask us to pause processing of your data in certain circumstances.',
       '**Right to data portability** — receive your data in a structured, machine-readable format.',
       '**Right to object** — object to processing based on legitimate interests or direct marketing.',
-      'To exercise any of these rights, email our Data Protection Officer at privacy@aevum.com. We will respond within 30 days. If you are unsatisfied with our response, you may lodge a complaint with the Swiss Federal Data Protection and Information Commissioner (FDPIC) or the supervisory authority in your EU member state.',
+      'To exercise any of these rights, email our Data Protection Officer at privacy@aevuno.com. We will respond within 30 days. If you are unsatisfied with our response, you may lodge a complaint with the Swiss Federal Data Protection and Information Commissioner (FDPIC) or the supervisory authority in your EU member state.',
     ],
   },
   {
@@ -99,8 +99,8 @@ const sections = [
     title: '11. Contact Us',
     body: [
       'For any privacy-related questions, requests, or concerns:',
-      '**Data Protection Officer** — privacy@aevum.com',
-      '**Postal address** — Aevum SA, Attn: Data Protection Officer, 14 Rue de la Corraterie, 1204 Geneva, Switzerland',
+      '**Data Protection Officer** — privacy@aevuno.com',
+      '**Postal address** — Aevuno SA, Attn: Data Protection Officer, 14 Rue de la Corraterie, 1204 Geneva, Switzerland',
       '**Response time** — we aim to acknowledge all requests within 5 business days and resolve them within 30 calendar days.',
     ],
   },
@@ -123,7 +123,7 @@ export default function PrivacyPolicyPage() {
             Last revised: <time dateTime="2025-01-01">1 January 2025</time>
           </p>
           <p className="text-on-surface-variant mt-3 leading-relaxed">
-            At Aevum, precision extends beyond our timepieces. We handle your
+            At Aevuno, precision extends beyond our timepieces. We handle your
             personal data with the same exacting standards we apply to
             watchmaking — nothing unnecessary, nothing wasted.
           </p>

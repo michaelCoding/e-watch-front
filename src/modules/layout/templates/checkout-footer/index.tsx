@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import LocalizedClientLink from '@modules/common/components/localized-client-link'
 import {
   VisaIcon,
@@ -15,9 +16,9 @@ export default function CheckoutFooter() {
 
           {/* Brand + copyright */}
           <div className="flex flex-col gap-1">
-            <p className="font-lora text-base text-[#f7f4ef]">The Woodenly</p>
+            <Image src="/logo.png" alt="Aevuno" width={80} height={32} className="object-contain" />
             <p className="text-xs text-[#f7f4ef]/30">
-              © {new Date().getFullYear()} The Woodenly. Handcrafted for the Slow Life.
+              © {new Date().getFullYear()} Aevuno. Discover what feels right.
             </p>
           </div>
 

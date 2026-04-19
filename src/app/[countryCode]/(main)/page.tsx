@@ -11,8 +11,8 @@ import Moments from '@modules/home/components/moments'
 import { QuietMoment } from '@modules/home/components/quiet-moment'
 
 export const metadata: Metadata = {
-  title: 'Aevum — The Art of Precision',
-  description: 'Precision timepieces engineered for the digital curator. Explore the Aevum collection.',
+  title: 'Aevuno — Discover What Feels Right',
+  description: 'Discover what feels right. Explore the Aevuno collection of precision timepieces.',
 }
 
 export default async function Home(props: {

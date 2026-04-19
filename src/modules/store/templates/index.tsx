@@ -7,7 +7,7 @@ import StoreFilterBar from './store-filter-bar'
 
 const FALLBACK = {
   headline: 'Precision Timepieces.',
-  text: 'Browse the Aevum collection — engineered for the digital curator.',
+  text: 'Browse the Aevuno collection — discover what feels right.',
   cta_text: 'Shop the Collection',
   cta_link: '/store',
   image_url: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1600&q=80',

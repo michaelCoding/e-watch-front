@@ -3,8 +3,8 @@ export const runtime = 'edge';
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Our Heritage — Aevum',
-  description: "The architecture of time. Aevum's story of precision craftsmanship since 1892.",
+  title: 'Our Heritage — Aevuno',
+  description: "The architecture of time. Aevuno's story of precision craftsmanship since 1892.",
 }
 
 const values = [
@@ -21,7 +21,7 @@ const values = [
   {
     icon: 'verified',
     title: 'Lifetime Guarantee',
-    body: 'Every Aevum timepiece is guaranteed for life. A watch should outlast its owner — ours do.',
+    body: 'Every Aevuno timepiece is guaranteed for life. A watch should outlast its owner — ours do.',
   },
 ]
 
@@ -48,7 +48,7 @@ export default function HeritagePage() {
             The Architecture <br /> of Time
           </h1>
           <p className="text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-            For over a century, Aevum has been at the intersection of art and engineering, crafting timepieces that transcend function.
+            For over a century, Aevuno has been at the intersection of art and engineering, crafting timepieces that transcend function.
           </p>
         </div>
       </header>
@@ -62,7 +62,7 @@ export default function HeritagePage() {
           </h2>
           <div className="space-y-6 text-on-surface-variant leading-relaxed text-lg">
             <p>
-              Aevum was founded in 1892 in Geneva by Heinrich Voss, a mechanical engineer who believed that a watch was not merely a device for measuring time, but a physical embodiment of human mastery over it.
+              Aevuno was founded in 1892 in Geneva by Heinrich Voss, a mechanical engineer who believed that a watch was not merely a device for measuring time, but a physical embodiment of human mastery over it.
             </p>
             <p>
               Today, we combine the heritage of that founding philosophy with the precision of modern materials science — titanium unibodies, sapphire crystals, and the industry&apos;s most advanced biometric sensor arrays.

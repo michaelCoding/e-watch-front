@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import LocalizedClientLink from '@modules/common/components/localized-client-link'
 
 export default function Footer() {
@@ -7,9 +8,9 @@ export default function Footer() {
 
         {/* Brand */}
         <div className="space-y-6">
-          <div className="font-black text-xl text-zinc-900 uppercase tracking-tighter">AEVUM</div>
+          <Image src="/logo.png" alt="Aevuno" width={100} height={40} className="object-contain" />
           <p className="text-zinc-400 text-xs tracking-widest uppercase leading-loose">
-            Precision instruments for the modern curator of moments.
+            Discover what feels right.
           </p>
         </div>
 
@@ -65,7 +66,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-zinc-200">
         <p className="text-xs tracking-widest uppercase text-zinc-400">
-          © {new Date().getFullYear()} AEVUM. THE ART OF PRECISION.
+          © {new Date().getFullYear()} AEVUNO. DISCOVER WHAT FEELS RIGHT.
         </p>
       </div>
     </footer>

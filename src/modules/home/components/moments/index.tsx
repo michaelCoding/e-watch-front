@@ -52,7 +52,7 @@ export default function Moments() {
             href="/store"
             className="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 font-semibold"
           >
-            View All Collections
+            View All Store
             <span className="material-symbols-outlined">arrow_forward</span>
           </LocalizedClientLink>
         </div>
