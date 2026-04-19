@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation"
 import { useIntersection } from "@lib/hooks/use-in-view"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
 import MobileActions from "./mobile-actions"
-import { addToCart } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 
 type ProductActionsProps = {
@@ -70,7 +69,13 @@ export default function ProductActions({
     if (!selectedVariant?.id) return
     setIsAdding(true)
     try {
-      await addToCart({ variantId: selectedVariant.id, quantity: 1, countryCode })
+      const res = await fetch('/api/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ variantId: selectedVariant.id, quantity: 1, countryCode }),
+      })
+      if (!res.ok) throw new Error('Failed to add to cart')
+      router.refresh()
     } finally {
       setIsAdding(false)
     }
@@ -80,7 +85,12 @@ export default function ProductActions({
     if (!selectedVariant?.id) return
     setIsBuying(true)
     try {
-      await addToCart({ variantId: selectedVariant.id, quantity: 1, countryCode })
+      const res = await fetch('/api/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ variantId: selectedVariant.id, quantity: 1, countryCode }),
+      })
+      if (!res.ok) throw new Error('Failed to add to cart')
       router.push(`/${countryCode}/checkout?step=address`)
     } catch {
       setIsBuying(false)
