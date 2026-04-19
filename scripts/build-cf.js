@@ -1,20 +1,32 @@
 #!/usr/bin/env node
 const { execSync } = require("child_process")
 const { writeFileSync } = require("fs")
+const { join } = require("path")
 
 const run = (cmd) => execSync(cmd, { stdio: "inherit", shell: true })
 
 if (process.platform !== "win32") {
-  // vercel build subprocess doesn't inherit parent env vars,
-  // so write them to .env.production which Next.js/vercel reads automatically
-  const envLines = Object.entries(process.env)
-    .filter(([key]) => key.startsWith("NEXT_PUBLIC_") || key.startsWith("MEDUSA_"))
-    .map(([key, val]) => `${key}=${val}`)
+  const envKeys = [
+    "NEXT_PUBLIC_MEDUSA_BACKEND_URL",
+    "NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_MINIO_ENDPOINT",
+    "NEXT_PUBLIC_SEARCH_API_KEY",
+    "NEXT_PUBLIC_SEARCH_ENDPOINT",
+    "NEXT_PUBLIC_BASE_URL",
+  ]
+
+  const envContent = envKeys
+    .filter((key) => process.env[key] !== undefined)
+    .map((key) => `${key}=${process.env[key]}`)
     .join("\n")
 
-  if (envLines) {
-    writeFileSync(".env.production", envLines)
-  }
+  // use absolute path so working directory doesn't matter
+  writeFileSync(join(__dirname, "..", ".env.production"), envContent + "\n")
+
+  console.log(".env.production written:")
+  envKeys.forEach((key) => {
+    console.log(`  ${key}: ${process.env[key] ? "SET" : "NOT SET"}`)
+  })
 
   run("pnpm exec next-on-pages")
 } else {
