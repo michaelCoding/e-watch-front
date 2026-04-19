@@ -1,5 +1,6 @@
+"use client"
 import { ChevronUpDown } from "@medusajs/icons"
-import { clx } from "@medusajs/ui"
+import clsx from "clsx"
 import {
   SelectHTMLAttributes,
   forwardRef,
@@ -41,7 +42,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
         <div
           onFocus={() => innerRef.current?.focus()}
           onBlur={() => innerRef.current?.blur()}
-          className={clx(
+          className={clsx(
             "relative flex items-center text-base-regular border border-ui-border-base bg-ui-bg-subtle rounded-md hover:bg-ui-bg-field-hover",
             className,
             {

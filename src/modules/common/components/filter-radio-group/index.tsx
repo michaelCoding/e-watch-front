@@ -1,5 +1,6 @@
+"use client"
 import { EllipseMiniSolid } from "@medusajs/icons"
-import { Label, RadioGroup, Text, clx } from "@medusajs/ui"
+import clsx from "clsx"
 
 type FilterRadioGroupProps = {
   title: string
@@ -21,25 +22,23 @@ const FilterRadioGroup = ({
 }: FilterRadioGroupProps) => {
   return (
     <div className="flex gap-x-3 flex-col gap-y-3">
-      <Text className="txt-compact-small-plus text-ui-fg-muted">{title}</Text>
-      <RadioGroup data-testid={dataTestId} onValueChange={handleChange}>
+      <span className="txt-compact-small-plus text-ui-fg-muted">{title}</span>
+      <div data-testid={dataTestId} onChange={handleChange}>
         {items?.map((i) => (
           <div
             key={i.value}
-            className={clx("flex gap-x-2 items-center", {
+            className={clsx("flex gap-x-2 items-center", {
               "ml-[-23px]": i.value === value,
             })}
           >
             {i.value === value && <EllipseMiniSolid />}
-            <RadioGroup.Item
-              checked={i.value === value}
+            <div
               className="hidden peer"
               id={i.value}
-              value={i.value}
             />
-            <Label
+            <label
               htmlFor={i.value}
-              className={clx(
+              className={clsx(
                 "!txt-compact-small !transform-none text-ui-fg-subtle hover:cursor-pointer",
                 {
                   "text-ui-fg-base": i.value === value,
@@ -49,10 +48,10 @@ const FilterRadioGroup = ({
               data-active={i.value === value}
             >
               {i.label}
-            </Label>
+            </label>
           </div>
         ))}
-      </RadioGroup>
+      </div>
     </div>
   )
 }

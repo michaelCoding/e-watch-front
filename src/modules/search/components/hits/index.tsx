@@ -1,4 +1,5 @@
-import { clx } from "@medusajs/ui"
+"use client"
+import clsx from "clsx"
 import React from "react"
 import {
   UseHitsProps,
@@ -24,7 +25,7 @@ const Hits = ({
 
   return (
     <div
-      className={clx(
+      className={clsx(
         "transition-[height,max-height,opacity] duration-300 ease-in-out sm:overflow-hidden w-full sm:w-[50vw] mb-1 p-px",
         className,
         {
@@ -40,7 +41,7 @@ const Hits = ({
         {hits.slice(0, 6).map((hit, index) => (
           <li
             key={index}
-            className={clx("list-none", {
+            className={clsx("list-none", {
               "hidden sm:block": index > 2,
             })}
           >

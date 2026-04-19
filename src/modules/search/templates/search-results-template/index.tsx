@@ -1,4 +1,4 @@
-import { Heading, Text } from "@medusajs/ui"
+"use client"
 import Link from "next/link"
 
 import RefinementList from "@modules/store/components/refinement-list"
@@ -27,10 +27,10 @@ const SearchResultsTemplate = ({
     <>
       <div className="flex justify-between border-b w-full py-6 px-8 small:px-14 items-center">
         <div className="flex flex-col items-start">
-          <Text className="text-ui-fg-muted">Search Results for:</Text>
-          <Heading>
+          <span className="text-ui-fg-muted">Search Results for:</span>
+          <h2>
             {decodeURI(query)} ({ids.length})
-          </Heading>
+          </h2>
         </div>
         <LocalizedClientLink
           href="/store"
@@ -53,7 +53,7 @@ const SearchResultsTemplate = ({
             </div>
           </>
         ) : (
-          <Text className="ml-8 small:ml-14 mt-3">No results.</Text>
+          <span className="ml-8 small:ml-14 mt-3">No results.</span>
         )}
       </div>
     </>

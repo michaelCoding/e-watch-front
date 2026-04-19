@@ -1,4 +1,3 @@
-import { Button, Container, Text } from "@medusajs/ui"
 import { cookies } from "next/headers"
 
 const ProductOnboardingCta = () => {
@@ -9,19 +8,21 @@ const ProductOnboardingCta = () => {
   }
 
   return (
-    <Container className="max-w-4xl h-full bg-ui-bg-subtle w-full p-8">
+    <div className="max-w-4xl h-full bg-ui-bg-subtle w-full p-8 rounded">
       <div className="flex flex-col gap-y-4 center">
-        <Text className="text-ui-fg-base text-xl">
+        <p className="text-ui-fg-base text-xl">
           Your demo product was successfully created! 🎉
-        </Text>
-        <Text className="text-ui-fg-subtle text-small-regular">
+        </p>
+        <p className="text-ui-fg-subtle text-small-regular">
           You can now continue setting up your store in the admin.
-        </Text>
+        </p>
         <a href="http://localhost:7001/a/orders?onboarding_step=create_order_nextjs">
-          <Button className="w-full">Continue setup in admin</Button>
+          <button className="w-full bg-ui-button-inverted text-ui-fg-on-inverted px-4 py-2 rounded">
+            Continue setup in admin
+          </button>
         </a>
       </div>
-    </Container>
+    </div>
   )
 }
 

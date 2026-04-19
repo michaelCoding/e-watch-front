@@ -1,6 +1,6 @@
 "use client"
 
-import { IconBadge, clx } from "@medusajs/ui"
+import clsx from "clsx"
 import {
   SelectHTMLAttributes,
   forwardRef,
@@ -38,10 +38,10 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
 
     return (
       <div>
-        <IconBadge
+        <span
           onFocus={() => innerRef.current?.focus()}
           onBlur={() => innerRef.current?.blur()}
-          className={clx(
+          className={clsx(
             "relative flex items-center txt-compact-small border text-ui-fg-base group",
             className,
             {
@@ -62,7 +62,7 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
           <span className="absolute flex pointer-events-none justify-end w-8 group-hover:animate-pulse">
             <ChevronDown />
           </span>
-        </IconBadge>
+        </span>
       </div>
     )
   }

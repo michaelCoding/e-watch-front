@@ -1,6 +1,7 @@
+"use client"
 import { deleteLineItem } from "@lib/data/cart"
 import { Spinner, Trash } from "@medusajs/icons"
-import { clx } from "@medusajs/ui"
+import clsx from "clsx"
 import { useState } from "react"
 
 const DeleteButton = ({
@@ -23,7 +24,7 @@ const DeleteButton = ({
 
   return (
     <div
-      className={clx(
+      className={clsx(
         "flex items-center justify-between text-small-regular",
         className
       )}

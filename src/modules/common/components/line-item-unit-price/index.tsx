@@ -1,6 +1,7 @@
+"use client"
 import { getPricesForVariant } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
-import { clx } from "@medusajs/ui"
+import clsx from "clsx"
 
 type LineItemUnitPriceProps = {
   item: HttpTypes.StoreCartLineItem | HttpTypes.StoreOrderLineItem
@@ -41,7 +42,7 @@ const LineItemUnitPrice = ({
         </>
       )}
       <span
-        className={clx("text-base-regular", {
+        className={clsx("text-base-regular", {
           "text-ui-fg-interactive": hasReducedPrice,
         })}
         data-testid="product-unit-price"

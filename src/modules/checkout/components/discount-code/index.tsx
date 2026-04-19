@@ -1,6 +1,5 @@
 "use client"
 
-import { Badge, Heading, Input, Label, Text, Tooltip } from "@medusajs/ui"
 import React from "react"
 import { useActionState } from "react"
 
@@ -56,7 +55,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
     <div className="w-full bg-white flex flex-col">
       <div className="txt-medium">
         <form action={(a) => addPromotionCode(a)} className="w-full mb-5">
-          <Label className="flex gap-x-1 my-2 items-center">
+          <label className="flex gap-x-1 my-2 items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
@@ -69,12 +68,12 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
             {/* <Tooltip content="You can add multiple promotion codes">
               <InformationCircleSolid color="var(--fg-muted)" />
             </Tooltip> */}
-          </Label>
+          </label>
 
           {isOpen && (
             <>
               <div className="flex w-full gap-x-2">
-                <Input
+                <input
                   className="size-full"
                   id="promotion-input"
                   name="code"
@@ -101,9 +100,9 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
         {promotions.length > 0 && (
           <div className="w-full flex items-center">
             <div className="flex flex-col w-full">
-              <Heading className="txt-medium mb-2">
+              <h2 className="txt-medium mb-2">
                 Promotion(s) applied:
-              </Heading>
+              </h2>
 
               {promotions.map((promotion) => {
                 return (
@@ -112,14 +111,11 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                     className="flex items-center justify-between w-full max-w-full mb-2"
                     data-testid="discount-row"
                   >
-                    <Text className="flex gap-x-1 items-baseline txt-small-plus w-4/5 pr-1">
+                    <span className="flex gap-x-1 items-baseline txt-small-plus w-4/5 pr-1">
                       <span className="truncate" data-testid="discount-code">
-                        <Badge
-                          color={promotion.is_automatic ? "green" : "grey"}
-                          size="small"
-                        >
+                        <span>
                           {promotion.code}
-                        </Badge>{" "}
+                        </span>{" "}
                         (
                         {promotion.application_method?.value !== undefined &&
                           promotion.application_method.currency_code !==
@@ -143,7 +139,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                           </Tooltip>
                         )} */}
                       </span>
-                    </Text>
+                    </span>
                     {!promotion.is_automatic && (
                       <button
                         className="flex items-center"

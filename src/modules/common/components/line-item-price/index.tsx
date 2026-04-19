@@ -1,4 +1,5 @@
-import { clx } from "@medusajs/ui"
+"use client"
+import clsx from "clsx"
 
 import { getPercentageDiff } from "@lib/util/get-precentage-diff"
 import { getPricesForVariant } from "@lib/util/get-product-price"
@@ -50,7 +51,7 @@ const LineItemPrice = ({ item, style = "default" }: LineItemPriceProps) => {
           </>
         )}
         <span
-          className={clx("text-base-regular", {
+          className={clsx("text-base-regular", {
             "text-ui-fg-interactive": hasReducedPrice,
           })}
           data-testid="product-price"

@@ -1,5 +1,6 @@
+"use client"
 import { Disclosure } from "@headlessui/react"
-import { Badge, Button, clx } from "@medusajs/ui"
+import clsx from "clsx"
 import { useEffect } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
@@ -55,8 +56,7 @@ const AccountInfo = ({
           </div>
         </div>
         <div>
-          <Button
-            variant="secondary"
+          <button
             className="w-[100px] min-h-[25px] py-1"
             onClick={handleToggle}
             type={state ? "reset" : "button"}
@@ -64,7 +64,7 @@ const AccountInfo = ({
             data-active={state}
           >
             {state ? "Cancel" : "Edit"}
-          </Button>
+          </button>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ const AccountInfo = ({
       <Disclosure>
         <Disclosure.Panel
           static
-          className={clx(
+          className={clsx(
             "transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden",
             {
               "max-h-[1000px] opacity-100": isSuccess,
@@ -81,9 +81,9 @@ const AccountInfo = ({
           )}
           data-testid="success-message"
         >
-          <Badge className="p-2 my-4" color="green">
+          <span className="p-2 my-4">
             <span>{label} updated succesfully</span>
-          </Badge>
+          </span>
         </Disclosure.Panel>
       </Disclosure>
 
@@ -91,7 +91,7 @@ const AccountInfo = ({
       <Disclosure>
         <Disclosure.Panel
           static
-          className={clx(
+          className={clsx(
             "transition-[max-height,opacity] duration-300 ease-in-out overflow-hidden",
             {
               "max-h-[1000px] opacity-100": isError,
@@ -100,16 +100,16 @@ const AccountInfo = ({
           )}
           data-testid="error-message"
         >
-          <Badge className="p-2 my-4" color="red">
+          <span className="p-2 my-4">
             <span>{errorMessage}</span>
-          </Badge>
+          </span>
         </Disclosure.Panel>
       </Disclosure>
 
       <Disclosure>
         <Disclosure.Panel
           static
-          className={clx(
+          className={clsx(
             "transition-[max-height,opacity] duration-300 ease-in-out overflow-visible",
             {
               "max-h-[1000px] opacity-100": state,
@@ -120,14 +120,13 @@ const AccountInfo = ({
           <div className="flex flex-col gap-y-2 py-4">
             <div>{children}</div>
             <div className="flex items-center justify-end mt-2">
-              <Button
-                isLoading={pending}
+              <button
                 className="w-full small:max-w-[140px]"
                 type="submit"
                 data-testid="save-button"
               >
                 Save changes
-              </Button>
+              </button>
             </div>
           </div>
         </Disclosure.Panel>

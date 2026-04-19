@@ -1,5 +1,6 @@
+"use client"
 import { Dialog, Transition } from "@headlessui/react"
-import { Button, clx } from "@medusajs/ui"
+import clsx from "clsx"
 import React, { Fragment, useMemo } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
@@ -52,7 +53,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
   return (
     <>
       <div
-        className={clx("lg:hidden inset-x-0 bottom-0 fixed", {
+        className={clsx("lg:hidden inset-x-0 bottom-0 fixed", {
           "pointer-events-none": !show,
         })}
       >
@@ -83,7 +84,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                     </p>
                   )}
                   <span
-                    className={clx({
+                    className={clsx({
                       "text-ui-fg-interactive":
                         selectedPrice.price_type === "sale",
                     })}
@@ -96,9 +97,8 @@ const MobileActions: React.FC<MobileActionsProps> = ({
               )}
             </div>
             <div className="grid grid-cols-2 w-full gap-x-4">
-              <Button
+              <button
                 onClick={open}
-                variant="secondary"
                 className="w-full"
                 data-testid="mobile-actions-button"
               >
@@ -110,12 +110,11 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   </span>
                   <ChevronDown />
                 </div>
-              </Button>
-              <Button
+              </button>
+              <button
                 onClick={handleAddToCart}
                 disabled={!inStock || !variant}
                 className="w-full"
-                isLoading={isAdding}
                 data-testid="mobile-cart-button"
               >
                 {!variant
@@ -123,7 +122,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   : !inStock
                   ? "Out of stock"
                   : "Add to cart"}
-              </Button>
+              </button>
             </div>
           </div>
         </Transition>

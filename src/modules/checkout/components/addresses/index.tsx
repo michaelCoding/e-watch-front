@@ -1,7 +1,7 @@
 "use client"
 
 import { CheckCircleSolid } from "@medusajs/icons"
-import { useToggleState } from "@medusajs/ui"
+import useToggleState from "@lib/hooks/use-toggle-state"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { Spinner } from "@modules/common/icons/spinner"

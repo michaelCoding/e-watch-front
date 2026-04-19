@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ':*)",
+      "Bash(cat src/app/[countryCode]/\\\\\\(main\\\\\\)/privacy-policy/page.tsx)",
+      "Bash(cat src/app/[countryCode]/\\\\\\(main\\\\\\)/heritage/page.tsx)",
+      "Bash(pnpm run:*)",
+      "Bash(rm:*)",
+      "Bash(npx next:*)",
+      "Bash(grep -rn \"import.*['\\\\\"]crypto['\\\\\"]\" src/ --include=\"*.ts\" --include=\"*.tsx\")",
+      "Bash(grep -rn \"require.*crypto\" src/ --include=\"*.ts\" --include=\"*.tsx\")",
+      "Bash(grep -rn \"import.*['\\\\\"]fs['\\\\\"]\" src/ --include=\"*.ts\" --include=\"*.tsx\")",
+      "Bash(grep -rn \"import.*['\\\\\"]path['\\\\\"]\" src/ --include=\"*.ts\" --include=\"*.tsx\")",
+      "Bash(grep -rn \"from.*['\\\\\"]pg['\\\\\"]\" . --include=\"*.ts\" --include=\"*.tsx\" --exclude-dir=node_modules)",
+      "Bash(grep -rn \"gray-matter\" src/ --include=\"*.ts\" --include=\"*.tsx\")",
+      "Bash(grep -rn \"axios\" src/ --include=\"*.ts\" --include=\"*.tsx\")",
+      "Bash(powershell:*)",
+      "Bash(pnpm install:*)",
+      "Bash(node -e \"const p = require\\('./node_modules/react/package.json'\\); console.log\\('React version:', p.version\\)\")"
+    ]
+  }
+}
