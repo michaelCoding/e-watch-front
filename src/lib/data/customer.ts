@@ -3,7 +3,6 @@
 import { sdk } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
 import { HttpTypes } from "@medusajs/types"
-import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { headers } from "next/headers"
 import { cache } from "react"
@@ -24,7 +23,6 @@ export const updateCustomer = cache(async function (
     .then(({ customer }) => customer)
     .catch(medusaError)
 
-  revalidateTag("customer")
   return updateRes
 })
 
@@ -61,7 +59,6 @@ export async function signup(_currentState: unknown, formData: FormData) {
     })
 
     await setAuthToken(typeof loginToken === 'string' ? loginToken : loginToken.location)
-    revalidateTag("customer")
   } catch (error: any) {
     return error.toString()
   }
@@ -79,7 +76,6 @@ export async function login(_currentState: unknown, formData: FormData) {
   try {
     const token = await sdk.auth.login("customer", "emailpass", { email, password })
     await setAuthToken(typeof token === 'string' ? token : token.location)
-    revalidateTag("customer")
   } catch (error: any) {
     return error.toString()
   }
@@ -90,8 +86,6 @@ export async function login(_currentState: unknown, formData: FormData) {
 export async function signout(countryCode: string) {
   await sdk.auth.logout()
   await removeAuthToken()
-  revalidateTag("auth")
-  revalidateTag("customer")
   redirect(`/${countryCode}/account`)
 }
 
@@ -115,7 +109,6 @@ export const addCustomerAddress = async (
   return sdk.store.customer
     .createAddress(address, {}, await getAuthHeaders())
     .then(({ customer }) => {
-      revalidateTag("customer")
       return { success: true, error: null }
     })
     .catch((err) => {
@@ -129,7 +122,6 @@ export const deleteCustomerAddress = async (
   await sdk.store.customer
     .deleteAddress(addressId, await getAuthHeaders())
     .then(() => {
-      revalidateTag("customer")
       return { success: true, error: null }
     })
     .catch((err) => {
@@ -159,7 +151,6 @@ export const updateCustomerAddress = async (
   return sdk.store.customer
     .updateAddress(addressId, address, {}, await getAuthHeaders())
     .then(() => {
-      revalidateTag("customer")
       return { success: true, error: null }
     })
     .catch((err) => {
