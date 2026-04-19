@@ -2,7 +2,14 @@ export const runtime = 'edge'
 
 import { NextRequest, NextResponse } from 'next/server'
 import { sdk } from '@lib/config'
-import { getRegion } from '@lib/data/regions'
+
+async function findRegion(countryCode: string) {
+  const { regions } = await sdk.store.region.list({})
+  for (const region of regions) {
+    if (region.countries?.some((c) => c.iso_2 === countryCode)) return region
+  }
+  return null
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +19,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing variant ID' }, { status: 400 })
     }
 
-    const region = await getRegion(countryCode)
+    const region = await findRegion(countryCode)
     if (!region) {
       return NextResponse.json({ error: `Region not found for: ${countryCode}` }, { status: 400 })
     }

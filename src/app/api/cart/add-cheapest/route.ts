@@ -2,8 +2,14 @@ export const runtime = 'edge'
 
 import { NextRequest, NextResponse } from 'next/server'
 import { sdk } from '@lib/config'
-import { getRegion } from '@lib/data/regions'
-import { getProductByHandle } from '@lib/data/products'
+
+async function findRegion(countryCode: string) {
+  const { regions } = await sdk.store.region.list({})
+  for (const region of regions) {
+    if (region.countries?.some((c) => c.iso_2 === countryCode)) return region
+  }
+  return null
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,7 +22,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const detailedProduct = await getProductByHandle(productHandle, regionId)
+    const { products } = await sdk.store.product.list({
+      handle: productHandle,
+      region_id: regionId,
+      fields: '*variants.calculated_price,+variants.inventory_quantity',
+    })
+    const detailedProduct = products[0]
 
     if (!detailedProduct) {
       return NextResponse.json({ success: false, error: 'Product not found' }, { status: 404 })
@@ -47,7 +58,7 @@ export async function POST(request: NextRequest) {
     const authHeaders: Record<string, string> = token ? { authorization: `Bearer ${token}` } : {}
     const existingCartId = request.cookies.get('_medusa_cart_id')?.value
 
-    const region = await getRegion(countryCode)
+    const region = await findRegion(countryCode)
     if (!region) {
       return NextResponse.json(
         { success: false, error: `Region not found for: ${countryCode}` },
