@@ -1,28 +1,12 @@
 "use client"
 
-import { useActionState } from "react"
-import { useFormStatus } from "react-dom"
+import { useState } from "react"
+import { useRouter, useParams } from "next/navigation"
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
-import { signup } from "@lib/data/customer"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
-}
-
-function JoinButton() {
-  const { pending } = useFormStatus()
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full flex justify-center items-center py-4 px-6 rounded-full text-white font-semibold text-lg hover:opacity-90 transition-all duration-300 shadow-md disabled:opacity-60"
-      style={{ background: "linear-gradient(135deg, #006875 0%, #00e5ff 100%)" }}
-      data-testid="register-button"
-    >
-      {pending ? "Creating account…" : "Join the Atelier"}
-    </button>
-  )
 }
 
 const inputCls =
@@ -31,7 +15,41 @@ const inputCls =
 const labelCls = "block text-sm font-medium text-on-surface-variant"
 
 const Register = ({ setCurrentView }: Props) => {
-  const [message, formAction] = useActionState(signup, null)
+  const [message, setMessage] = useState<string | null>(null)
+  const [pending, setPending] = useState(false)
+  const router = useRouter()
+  const params = useParams()
+  const countryCode = (params?.countryCode as string) ?? "us"
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setPending(true)
+    setMessage(null)
+    const formData = new FormData(e.currentTarget)
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.get("email"),
+          password: formData.get("password"),
+          first_name: formData.get("first_name"),
+          last_name: formData.get("last_name"),
+          phone: formData.get("phone") ?? "",
+        }),
+      })
+      if (res.ok) {
+        router.push(`/${countryCode}/account`)
+        router.refresh()
+      } else {
+        const data = await res.json()
+        setMessage(data.error || "Registration failed")
+      }
+    } catch (e: any) {
+      setMessage(e.message)
+    }
+    setPending(false)
+  }
 
   return (
     <main
@@ -73,7 +91,7 @@ const Register = ({ setCurrentView }: Props) => {
             </p>
           </div>
 
-          <form className="space-y-6" action={formAction}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Name row */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -173,11 +191,19 @@ const Register = ({ setCurrentView }: Props) => {
             </div>
 
             {/* Error */}
-            {typeof message === "string" && message && (
+            {message && (
               <p className="text-sm text-red-600">{message}</p>
             )}
 
-            <JoinButton />
+            <button
+              type="submit"
+              disabled={pending}
+              className="w-full flex justify-center items-center py-4 px-6 rounded-full text-white font-semibold text-lg hover:opacity-90 transition-all duration-300 shadow-md disabled:opacity-60"
+              style={{ background: "linear-gradient(135deg, #006875 0%, #00e5ff 100%)" }}
+              data-testid="register-button"
+            >
+              {pending ? "Creating account…" : "Join the Atelier"}
+            </button>
           </form>
 
           {/* Divider */}

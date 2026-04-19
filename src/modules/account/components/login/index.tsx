@@ -1,31 +1,46 @@
 "use client"
 
-import { useActionState } from "react"
-import { useFormStatus } from "react-dom"
+import { useState } from "react"
+import { useRouter, useParams } from "next/navigation"
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
-import { login } from "@lib/data/customer"
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
 }
 
-function SignInButton() {
-  const { pending } = useFormStatus()
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full py-4 text-white rounded-full font-semibold tracking-wide hover:opacity-90 transition-all duration-300 flex justify-center items-center gap-2 disabled:opacity-60"
-      style={{ background: "linear-gradient(135deg, #006875 0%, #00e5ff 100%)" }}
-      data-testid="sign-in-button"
-    >
-      {pending ? "Signing in…" : "Sign In"} <span aria-hidden="true">→</span>
-    </button>
-  )
-}
-
 const Login = ({ setCurrentView }: Props) => {
-  const [message, formAction] = useActionState(login, null)
+  const [message, setMessage] = useState<string | null>(null)
+  const [pending, setPending] = useState(false)
+  const router = useRouter()
+  const params = useParams()
+  const countryCode = (params?.countryCode as string) ?? "us"
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setPending(true)
+    setMessage(null)
+    const formData = new FormData(e.currentTarget)
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.get("email"),
+          password: formData.get("password"),
+        }),
+      })
+      if (res.ok) {
+        router.push(`/${countryCode}/account`)
+        router.refresh()
+      } else {
+        const data = await res.json()
+        setMessage(data.error || "Login failed")
+      }
+    } catch (e: any) {
+      setMessage(e.message)
+    }
+    setPending(false)
+  }
 
   return (
     <main
@@ -54,7 +69,7 @@ const Login = ({ setCurrentView }: Props) => {
           </div>
 
           {/* Form */}
-          <form className="space-y-6" action={formAction}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Email */}
             <div className="space-y-2">
               <label
@@ -108,7 +123,15 @@ const Login = ({ setCurrentView }: Props) => {
               <p className="text-sm text-red-600">{message}</p>
             )}
 
-            <SignInButton />
+            <button
+              type="submit"
+              disabled={pending}
+              className="w-full py-4 text-white rounded-full font-semibold tracking-wide hover:opacity-90 transition-all duration-300 flex justify-center items-center gap-2 disabled:opacity-60"
+              style={{ background: "linear-gradient(135deg, #006875 0%, #00e5ff 100%)" }}
+              data-testid="sign-in-button"
+            >
+              {pending ? "Signing in…" : "Sign In"} <span aria-hidden="true">→</span>
+            </button>
           </form>
 
           {/* Register link */}
