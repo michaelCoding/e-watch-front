@@ -1,11 +1,10 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
-import { useActionState } from "react"
+import React, { useState } from "react"
+import { useRouter } from "next/navigation"
 import CountrySelect from "@modules/checkout/components/country-select"
 import Input from "@modules/common/components/input"
 import { HttpTypes } from "@medusajs/types"
-import { deleteCustomerAddress, updateCustomerAddress } from "@lib/data/customer"
 
 type EditAddressProps = {
   region: HttpTypes.StoreRegion
@@ -17,21 +16,55 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [removing, setRemoving] = useState(false)
-  const formRef = useRef<HTMLDivElement>(null)
+  const [formError, setFormError] = useState<string | null>(null)
+  const router = useRouter()
 
-  const [formState, formAction] = useActionState(updateCustomerAddress, {
-    success: false,
-    error: null,
-    addressId: address.id,
-  })
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setFormError(null)
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      first_name: formData.get("first_name") as string,
+      last_name: formData.get("last_name") as string,
+      company: formData.get("company") as string,
+      address_1: formData.get("address_1") as string,
+      address_2: formData.get("address_2") as string,
+      city: formData.get("city") as string,
+      postal_code: formData.get("postal_code") as string,
+      province: formData.get("province") as string,
+      country_code: formData.get("country_code") as string,
+      phone: formData.get("phone") as string,
+    }
 
-  useEffect(() => {
-    if (formState.success) setIsEditing(false)
-  }, [formState.success])
+    try {
+      const res = await fetch('/api/account/update-address', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ addressId: address.id, ...data }),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Failed to update address')
+      setIsEditing(false)
+      router.refresh()
+    } catch (err: any) {
+      setFormError(err.message || err.toString())
+    }
+  }
 
   const removeAddress = async () => {
     setRemoving(true)
-    await deleteCustomerAddress(address.id)
+    try {
+      const res = await fetch('/api/account/delete-address', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ addressId: address.id }),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Failed to delete address')
+      router.refresh()
+    } catch {
+      setRemoving(false)
+    }
   }
 
   return (
@@ -140,7 +173,7 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
             </button>
           </div>
 
-          <form action={formAction} className="flex flex-col gap-3">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <div className="grid grid-cols-2 gap-3">
               <Input label="First name" name="first_name" required autoComplete="given-name"
                 defaultValue={address.first_name || undefined} data-testid="first-name-input" />
@@ -166,9 +199,9 @@ const EditAddress: React.FC<EditAddressProps> = ({ region, address }) => {
             <Input label="Phone" name="phone" autoComplete="phone"
               defaultValue={address.phone || undefined} data-testid="phone-input" />
 
-            {formState.error && (
+            {formError && (
               <p className="text-xs text-[#c0392b] bg-[#fef0f0] px-3 py-2 rounded-lg">
-                {formState.error}
+                {formError}
               </p>
             )}
 

@@ -1,9 +1,8 @@
 "use client"
 
-import React from "react"
-import { useActionState } from "react"
+import React, { useState } from "react"
+import { useRouter } from "next/navigation"
 
-import { applyPromotions, submitPromotionForm } from "@lib/data/cart"
 import { convertToLocale } from "@lib/util/money"
 import { InformationCircleSolid } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
@@ -19,15 +18,31 @@ type DiscountCodeProps = {
 
 const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
   const [isOpen, setIsOpen] = React.useState(false)
+  const [message, setMessage] = useState<string | null>(null)
+  const router = useRouter()
 
-  const { items = [], promotions = [] } = cart
+  const { promotions = [] } = cart
+
+  const applyPromotions = async (codes: string[]) => {
+    const res = await fetch('/api/cart/apply-promotions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ codes }),
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      throw new Error(data.error || 'Failed to apply promotions')
+    }
+    router.refresh()
+  }
+
   const removePromotionCode = async (code: string) => {
     const validPromotions = promotions.filter(
       (promotion) => promotion.code !== code
     )
 
     await applyPromotions(
-      validPromotions.filter((p) => p.code === undefined).map((p) => p.code!)
+      validPromotions.filter((p) => p.code !== undefined).map((p) => p.code!)
     )
   }
 
@@ -38,18 +53,21 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
     }
     const input = document.getElementById("promotion-input") as HTMLInputElement
     const codes = promotions
-      .filter((p) => p.code === undefined)
+      .filter((p) => p.code !== undefined)
       .map((p) => p.code!)
     codes.push(code.toString())
 
-    await applyPromotions(codes)
+    try {
+      await applyPromotions(codes)
+      setMessage(null)
+    } catch (err: any) {
+      setMessage(err.message || 'Failed to apply promotion')
+    }
 
     if (input) {
       input.value = ""
     }
   }
-
-  const [message, formAction] = useActionState(submitPromotionForm, null)
 
   return (
     <div className="w-full bg-white flex flex-col">

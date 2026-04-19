@@ -1,28 +1,49 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { useActionState } from "react"
+import { useRef, useState } from "react"
+import { useRouter } from "next/navigation"
 import CountrySelect from "@modules/checkout/components/country-select"
 import Input from "@modules/common/components/input"
 import { HttpTypes } from "@medusajs/types"
-import { addCustomerAddress } from "@lib/data/customer"
 
 const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
   const [isOpen, setIsOpen] = useState(false)
-
-  const [formState, formAction] = useActionState(addCustomerAddress, {
-    success: false,
-    error: null,
-  })
-
+  const [error, setError] = useState<string | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const router = useRouter()
 
-  useEffect(() => {
-    if (formState.success) {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setError(null)
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      first_name: formData.get("first_name") as string,
+      last_name: formData.get("last_name") as string,
+      company: formData.get("company") as string,
+      address_1: formData.get("address_1") as string,
+      address_2: formData.get("address_2") as string,
+      city: formData.get("city") as string,
+      postal_code: formData.get("postal_code") as string,
+      province: formData.get("province") as string,
+      country_code: formData.get("country_code") as string,
+      phone: formData.get("phone") as string,
+    }
+
+    try {
+      const res = await fetch('/api/account/add-address', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Failed to add address')
       setIsOpen(false)
       formRef.current?.reset()
+      router.refresh()
+    } catch (err: any) {
+      setError(err.message || err.toString())
     }
-  }, [formState.success])
+  }
 
   return (
     <div
@@ -62,7 +83,7 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
             </button>
           </div>
 
-          <form ref={formRef} action={formAction} className="flex flex-col gap-3">
+          <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3">
             <div className="grid grid-cols-2 gap-3">
               <Input label="First name" name="first_name" required autoComplete="given-name"
                 data-testid="first-name-input" />
@@ -88,9 +109,9 @@ const AddAddress = ({ region }: { region: HttpTypes.StoreRegion }) => {
             <Input label="Phone" name="phone" autoComplete="phone"
               data-testid="phone-input" />
 
-            {formState.error && (
+            {error && (
               <p className="text-xs text-[#c0392b] bg-[#fef0f0] px-3 py-2 rounded-lg" data-testid="address-error">
-                {formState.error}
+                {error}
               </p>
             )}
 

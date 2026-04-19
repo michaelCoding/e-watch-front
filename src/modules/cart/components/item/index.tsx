@@ -1,6 +1,5 @@
 "use client"
 
-import { updateLineItem } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import DeleteButton from "@modules/common/components/delete-button"
 import ErrorMessage from "@modules/checkout/components/error-message"
@@ -11,6 +10,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import { Spinner } from "@modules/common/icons/spinner"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 type ItemProps = {
   item: HttpTypes.StoreCartLineItem
@@ -20,6 +20,7 @@ type ItemProps = {
 const Item = ({ item, type = "full" }: ItemProps) => {
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
   const { handle } = item.variant?.product ?? {}
   const maxQuantity = item.variant?.manage_inventory ? 10 : 10
@@ -28,9 +29,23 @@ const Item = ({ item, type = "full" }: ItemProps) => {
     if (quantity < 1) return
     setError(null)
     setUpdating(true)
-    await updateLineItem({ lineId: item.id, quantity })
-      .catch((err) => setError(err.message))
-      .finally(() => setUpdating(false))
+    try {
+      const res = await fetch('/api/cart/update-item', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lineId: item.id, quantity }),
+      })
+      if (!res.ok) {
+        const data = await res.json()
+        setError(data.error || 'Failed to update quantity')
+      } else {
+        router.refresh()
+      }
+    } catch (err: any) {
+      setError(err.message || 'Failed to update quantity')
+    } finally {
+      setUpdating(false)
+    }
   }
 
   /* ── Preview mode (checkout sidebar) ── */

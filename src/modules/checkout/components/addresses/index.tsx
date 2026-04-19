@@ -1,18 +1,15 @@
 "use client"
 
-import { CheckCircleSolid } from "@medusajs/icons"
 import useToggleState from "@lib/hooks/use-toggle-state"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 import { Spinner } from "@modules/common/icons/spinner"
-import { setAddresses } from "@lib/data/cart"
 import compareAddresses from "@lib/util/compare-addresses"
 import { HttpTypes } from "@medusajs/types"
-import { useActionState } from "react"
+import { useState } from "react"
 import BillingAddress from "../billing_address"
 import ErrorMessage from "../error-message"
 import ShippingAddress from "../shipping-address"
-import { SubmitButton } from "../submit-button"
 
 const StepBadge = ({
   num,
@@ -67,7 +64,72 @@ const Addresses = ({
     router.push(pathname + "?step=address")
   }
 
-  const [message, formAction] = useActionState(setAddresses, null)
+  const [message, setMessage] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setMessage(null)
+    try {
+      const formData = new FormData(e.currentTarget)
+      const sameAsBillingValue = formData.get("same_as_billing")
+
+      const shipping_address = {
+        first_name: formData.get("shipping_address.first_name"),
+        last_name: formData.get("shipping_address.last_name"),
+        address_1: formData.get("shipping_address.address_1"),
+        address_2: "",
+        company: formData.get("shipping_address.company"),
+        postal_code: formData.get("shipping_address.postal_code"),
+        city: formData.get("shipping_address.city"),
+        country_code: formData.get("shipping_address.country_code"),
+        province: formData.get("shipping_address.province"),
+        phone: formData.get("shipping_address.phone"),
+      }
+
+      const billing_address = sameAsBillingValue === "on"
+        ? shipping_address
+        : {
+            first_name: formData.get("billing_address.first_name"),
+            last_name: formData.get("billing_address.last_name"),
+            address_1: formData.get("billing_address.address_1"),
+            address_2: "",
+            company: formData.get("billing_address.company"),
+            postal_code: formData.get("billing_address.postal_code"),
+            city: formData.get("billing_address.city"),
+            country_code: formData.get("billing_address.country_code"),
+            province: formData.get("billing_address.province"),
+            phone: formData.get("billing_address.phone"),
+          }
+
+      const res = await fetch('/api/cart/set-addresses', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          shipping_address,
+          billing_address,
+          email: formData.get("email"),
+          same_as_billing: sameAsBillingValue,
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setMessage(data.error || 'Failed to set addresses')
+        return
+      }
+
+      if (data.redirectUrl) {
+        router.push(data.redirectUrl)
+      }
+    } catch (err: any) {
+      setMessage(err.message || 'An unexpected error occurred')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <div>
@@ -97,7 +159,7 @@ const Addresses = ({
 
       {/* ── Open (form) state ── */}
       {isOpen ? (
-        <form action={formAction}>
+        <form onSubmit={handleSubmit}>
           <div className="pb-8">
             <ShippingAddress
               customer={customer}
@@ -120,9 +182,28 @@ const Addresses = ({
               </div>
             )}
 
-            <SubmitButton className="mt-6" data-testid="submit-address-button">
-              Continue to delivery
-            </SubmitButton>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              data-testid="submit-address-button"
+              className={[
+                "w-full py-3.5 bg-[#1c1c1a] text-white text-sm font-semibold rounded-xl mt-6",
+                "hover:bg-[#2d2d2a] transition-all duration-200",
+                "flex items-center justify-center gap-2",
+                "disabled:opacity-60 disabled:cursor-wait",
+              ].join(" ")}
+            >
+              {isSubmitting ? (
+                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  Continue to delivery
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </>
+              )}
+            </button>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
         </form>

@@ -4,9 +4,9 @@ import { OnApproveActions, OnApproveData } from "@paypal/paypal-js"
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
 import React, { useState } from "react"
+import { useRouter } from "next/navigation"
 import ErrorMessage from "../error-message"
 import { Spinner } from "@modules/common/icons/spinner"
-import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { isManual, isPaypal, isStripe } from "@lib/constants"
 
@@ -90,10 +90,20 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
 
 const GiftCardPaymentButton = () => {
   const [submitting, setSubmitting] = useState(false)
+  const router = useRouter()
 
   const handleOrder = async () => {
     setSubmitting(true)
-    await placeOrder()
+    try {
+      const res = await fetch('/api/cart/place-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await res.json()
+      if (data.redirectUrl) router.push(data.redirectUrl)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -117,11 +127,21 @@ const StripePaymentButton = ({
 }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const router = useRouter()
 
   const onPaymentCompleted = async () => {
-    await placeOrder()
-      .catch((err) => setErrorMessage(err.message))
-      .finally(() => setSubmitting(false))
+    try {
+      const res = await fetch('/api/cart/place-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await res.json()
+      if (data.redirectUrl) router.push(data.redirectUrl)
+    } catch (err: any) {
+      setErrorMessage(err.message)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const stripe = useStripe()
@@ -207,11 +227,21 @@ const PayPalPaymentButton = ({
 }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const router = useRouter()
 
   const onPaymentCompleted = async () => {
-    await placeOrder()
-      .catch((err) => setErrorMessage(err.message))
-      .finally(() => setSubmitting(false))
+    try {
+      const res = await fetch('/api/cart/place-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await res.json()
+      if (data.redirectUrl) router.push(data.redirectUrl)
+    } catch (err: any) {
+      setErrorMessage(err.message)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const session = cart.payment_collection?.payment_sessions?.find(
@@ -279,11 +309,21 @@ const ManualTestPaymentButton = ({
 }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const router = useRouter()
 
   const onPaymentCompleted = async () => {
-    await placeOrder()
-      .catch((err) => setErrorMessage(err.message))
-      .finally(() => setSubmitting(false))
+    try {
+      const res = await fetch('/api/cart/place-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      const data = await res.json()
+      if (data.redirectUrl) router.push(data.redirectUrl)
+    } catch (err: any) {
+      setErrorMessage(err.message)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handlePayment = () => {

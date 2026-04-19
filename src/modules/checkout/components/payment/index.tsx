@@ -11,7 +11,6 @@ import { StripeCardElementOptions } from "@stripe/stripe-js"
 import PaymentContainer from "@modules/checkout/components/payment-container"
 import { isStripe as isStripeFunc, paymentInfoMap } from "@lib/constants"
 import { StripeContext } from "@modules/checkout/components/payment-wrapper"
-import { initiatePaymentSession } from "@lib/data/cart"
 
 const StepBadge = ({
   num,
@@ -116,9 +115,19 @@ const Payment = ({
         isStripeFunc(selectedPaymentMethod) && !activeSession
 
       if (!activeSession) {
-        await initiatePaymentSession(cart, {
-          provider_id: selectedPaymentMethod,
+        const res = await fetch('/api/cart/initiate-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            cartId: cart.id,
+            providerId: selectedPaymentMethod,
+          }),
         })
+        const data = await res.json()
+        if (!res.ok) {
+          throw new Error(data.error || 'Failed to initiate payment session')
+        }
+        router.refresh()
       }
 
       if (!shouldInputCard) {

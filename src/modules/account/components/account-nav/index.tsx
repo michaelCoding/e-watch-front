@@ -2,7 +2,7 @@
 
 import clsx from "clsx"
 import { ArrowRightOnRectangle } from "@medusajs/icons"
-import { useParams, usePathname } from "next/navigation"
+import { useParams, usePathname, useRouter } from "next/navigation"
 
 import { ChevronDownIcon as ChevronDown } from "@modules/common/icons/chevron-down"
 import { UserIcon as User } from "@modules/common/icons/user"
@@ -10,7 +10,6 @@ import MapPin from "@modules/common/icons/map-pin"
 import { PackageIcon as Package } from "@modules/common/icons/package"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
-import { signout } from "@lib/data/customer"
 
 const AccountNav = ({
   customer,
@@ -19,9 +18,11 @@ const AccountNav = ({
 }) => {
   const route = usePathname()
   const { countryCode } = useParams() as { countryCode: string }
+  const router = useRouter()
 
   const handleLogout = async () => {
-    await signout(countryCode)
+    await fetch('/api/account/signout', { method: 'POST' })
+    router.push(`/${countryCode}/account`)
   }
 
   return (

@@ -1,14 +1,13 @@
 "use client"
 
-import React, { useEffect, useMemo } from "react"
+import React, { useMemo, useState } from "react"
+import { useRouter } from "next/navigation"
 
 import Input from "@modules/common/components/input"
 import NativeSelect from "@modules/common/components/native-select"
 
 import AccountInfo from "../account-info"
-import { useActionState } from "react"
 import { HttpTypes } from "@medusajs/types"
-import { updateCustomerAddress } from "@lib/data/customer"
 
 type MyInformationProps = {
   customer: HttpTypes.StoreCustomer
@@ -32,24 +31,59 @@ const ProfileBillingAddress: React.FC<MyInformationProps> = ({
     )
   }, [regions])
 
-  const [successState, setSuccessState] = React.useState(false)
-
-  const [state, formAction] = useActionState(updateCustomerAddress, {
-    error: false,
-    success: false,
-  })
+  const [successState, setSuccessState] = useState(false)
+  const [errorState, setErrorState] = useState<string | false>(false)
+  const router = useRouter()
 
   const clearState = () => {
     setSuccessState(false)
+    setErrorState(false)
   }
-
-  useEffect(() => {
-    setSuccessState(state.success)
-  }, [state])
 
   const billingAddress = customer.addresses?.find(
     (addr) => addr.is_default_billing
   )
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const body = {
+      first_name: formData.get("billing_address.first_name") as string,
+      last_name: formData.get("billing_address.last_name") as string,
+      company: formData.get("billing_address.company") as string,
+      address_1: formData.get("billing_address.address_1") as string,
+      address_2: formData.get("billing_address.address_2") as string,
+      city: formData.get("billing_address.city") as string,
+      postal_code: formData.get("billing_address.postal_code") as string,
+      province: formData.get("billing_address.province") as string,
+      country_code: formData.get("billing_address.country_code") as string,
+    }
+
+    try {
+      let res: Response
+      if (billingAddress?.id) {
+        res = await fetch('/api/account/update-address', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ addressId: billingAddress.id, ...body }),
+        })
+      } else {
+        res = await fetch('/api/account/add-address', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        })
+      }
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Failed to update billing address')
+      setSuccessState(true)
+      setErrorState(false)
+      router.refresh()
+    } catch (error: any) {
+      setErrorState(error.toString())
+      setSuccessState(false)
+    }
+  }
 
   const currentInfo = useMemo(() => {
     if (!billingAddress) {
@@ -80,12 +114,12 @@ const ProfileBillingAddress: React.FC<MyInformationProps> = ({
   }, [billingAddress, regionOptions])
 
   return (
-    <form action={formAction} onReset={() => clearState()} className="w-full">
+    <form onSubmit={handleSubmit} onReset={() => clearState()} className="w-full">
       <AccountInfo
         label="Billing address"
         currentInfo={currentInfo}
         isSuccess={successState}
-        isError={!!state.error}
+        isError={!!errorState}
         clearState={clearState}
         data-testid="account-billing-address-editor"
       >

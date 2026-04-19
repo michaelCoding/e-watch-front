@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
 
-import { addToCartCheapestVariant } from '@lib/data/cart'
 import { useCartStore } from '@lib/store/useCartStore'
 import { cn } from '@lib/util/cn'
 import { Button } from '@modules/common/components/button'
@@ -25,11 +24,12 @@ export function ProductActions({
     setIsAddingToCart(true)
 
     try {
-      const result = await addToCartCheapestVariant({
-        productHandle,
-        regionId,
-        countryCode,
+      const res = await fetch('/api/cart/add-cheapest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productHandle, regionId, countryCode }),
       })
+      const result = await res.json()
 
       if (result.success) {
         setTimeout(() => {

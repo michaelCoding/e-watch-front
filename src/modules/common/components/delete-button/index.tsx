@@ -1,8 +1,8 @@
 "use client"
-import { deleteLineItem } from "@lib/data/cart"
 import { Spinner, Trash } from "@medusajs/icons"
 import clsx from "clsx"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 const DeleteButton = ({
   id,
@@ -14,12 +14,24 @@ const DeleteButton = ({
   className?: string
 }) => {
   const [isDeleting, setIsDeleting] = useState(false)
+  const router = useRouter()
 
   const handleDelete = async (id: string) => {
     setIsDeleting(true)
-    await deleteLineItem(id).catch((err) => {
+    try {
+      const res = await fetch('/api/cart/delete-item', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lineId: id }),
+      })
+      if (res.ok) {
+        router.refresh()
+      }
+    } catch {
+      // swallow errors silently, consistent with prior behaviour
+    } finally {
       setIsDeleting(false)
-    })
+    }
   }
 
   return (

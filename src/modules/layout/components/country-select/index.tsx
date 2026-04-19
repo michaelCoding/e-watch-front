@@ -5,8 +5,7 @@ import { Fragment, useEffect, useMemo, useState } from "react"
 import ReactCountryFlag from "react-country-flag"
 
 import { StateType } from "@lib/hooks/use-toggle-state"
-import { useParams, usePathname } from "next/navigation"
-import { updateRegion } from "@lib/data/cart"
+import { useParams, usePathname, useRouter } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
 
 type CountryOption = {
@@ -28,6 +27,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
 
   const { countryCode } = useParams()
   const currentPath = usePathname().split(`/${countryCode}`)[1]
+  const router = useRouter()
 
   const { state, close } = toggleState
 
@@ -51,9 +51,17 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
     }
   }, [options, countryCode])
 
-  const handleChange = (option: CountryOption) => {
-    updateRegion(option.country, currentPath)
+  const handleChange = async (option: CountryOption) => {
+    const res = await fetch('/api/cart/update-region', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ countryCode: option.country, currentPath }),
+    })
+    const data = await res.json()
     close()
+    if (data.redirectUrl) {
+      router.push(data.redirectUrl)
+    }
   }
 
   return (

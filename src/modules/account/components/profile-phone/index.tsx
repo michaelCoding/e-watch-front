@@ -1,58 +1,59 @@
 "use client"
 
-import React, { useEffect } from "react"
-import { useActionState } from "react"
+import React, { useState } from "react"
+import { useRouter } from "next/navigation"
 
 import Input from "@modules/common/components/input"
 
 import AccountInfo from "../account-info"
 import { HttpTypes } from "@medusajs/types"
-import { updateCustomer } from "@lib/data/customer"
 
 type MyInformationProps = {
   customer: HttpTypes.StoreCustomer
 }
 
 const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
-  const [successState, setSuccessState] = React.useState(false)
+  const [successState, setSuccessState] = useState(false)
+  const [errorState, setErrorState] = useState<string | false>(false)
+  const router = useRouter()
 
-  const updateCustomerPhone = async (
-    _currentState: Record<string, unknown>,
-    formData: FormData
-  ) => {
-    const customer = {
+  const clearState = () => {
+    setSuccessState(false)
+    setErrorState(false)
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const data = {
       phone: formData.get("phone") as string,
     }
 
     try {
-      await updateCustomer(customer)
-      return { success: true, error: null }
+      const res = await fetch('/api/account/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Failed to update')
+      setSuccessState(true)
+      setErrorState(false)
+      router.refresh()
     } catch (error: any) {
-      return { success: false, error: error.toString() }
+      setErrorState(error.toString())
+      setSuccessState(false)
     }
   }
 
-  const [state, formAction] = useActionState(updateCustomerPhone, {
-    error: false,
-    success: false,
-  })
-
-  const clearState = () => {
-    setSuccessState(false)
-  }
-
-  useEffect(() => {
-    setSuccessState(state.success)
-  }, [state])
-
   return (
-    <form action={formAction} className="w-full">
+    <form onSubmit={handleSubmit} className="w-full">
       <AccountInfo
         label="Phone"
         currentInfo={`${customer.phone}`}
         isSuccess={successState}
-        isError={!!state.error}
-        errorMessage={state.error}
+        isError={!!errorState}
+        errorMessage={errorState || undefined}
         clearState={clearState}
         data-testid="account-phone-editor"
       >
